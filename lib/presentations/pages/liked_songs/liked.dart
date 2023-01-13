@@ -32,7 +32,7 @@ class LikedSongs extends StatelessWidget {
                   crossAxisCount: 2,
                   children: List.generate(
                     favorsong.length,
-                    (index) => favorite(
+                    (index) => favoritedummy(
                         song: favorsong[index],
                         image: favorimg[index],
                         time: favortime[index]),

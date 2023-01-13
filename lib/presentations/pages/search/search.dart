@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Data/Models/models/songsmodel.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -8,6 +10,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 final _searchController = TextEditingController();
+List<Songs> songList = Hive.box<Songs>(boxname).values.toList();
+List<Songs> songDisplay = List<Songs>.from(songList);
 
 class _SearchScreenState extends State<SearchScreen> {
   @override

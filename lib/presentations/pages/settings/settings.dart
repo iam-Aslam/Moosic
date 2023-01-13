@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:moosic/presentations/widgets/common.dart';
-import 'package:moosic/presentations/widgets/data.dart';
 
 class settings extends StatelessWidget {
   const settings({super.key});
@@ -27,11 +25,6 @@ class settings extends StatelessWidget {
             children: [
               header(context),
               titlesfav(title: 'Settings'),
-              settingselements(
-                  icon: Icons.account_circle_outlined,
-                  context: context,
-                  title: 'Account',
-                  page: 'account'),
               settingselements(
                   icon: Icons.lock,
                   context: context,

@@ -3,6 +3,17 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Data/Models/functions/addplaylist.dart';
+import 'package:moosic/Data/Models/functions/dbfunctions.dart';
+import 'package:moosic/Data/Models/models/playlistmodel.dart';
+import 'package:moosic/Data/Models/models/songsmodel.dart';
+import 'package:moosic/presentations/pages/current_playing/current.dart';
+import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
+import 'package:moosic/presentations/pages/home/home.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+
+import '../../Data/Models/models/favouriteModel.dart';
 
 class common extends StatelessWidget {
   const common({super.key});
@@ -46,7 +57,6 @@ Widget header(BuildContext context) {
 //header for pages
 Widget headerpages(BuildContext context) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       IconButton(
         onPressed: () {
@@ -57,13 +67,6 @@ Widget headerpages(BuildContext context) {
           size: 30,
         ),
       ),
-      IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.search_sharp,
-          size: 30,
-        ),
-      )
     ],
   );
 }
@@ -198,14 +201,21 @@ Padding titlesinglep({required String title}) {
 }
 
 //main page list tile
-InkWell listtile(
-    {required String image,
-    required String song,
-    required String artist,
-    required String duration}) {
+InkWell listtile({
+  required int image,
+  required String song,
+  required String artist,
+  required String duration,
+  required int index,
+  required bool isadded,
+  required BuildContext context,
+}) {
   return InkWell(
     onTap: () {
-      log('I am list tile');
+      log('i am listtile');
+      home.currentvalue.value = index;
+      current.currentvalue.value = index;
+      Navigator.of(context).pushNamed('current');
     },
     child: Container(
       height: 80,
@@ -215,14 +225,13 @@ InkWell listtile(
         children: [
           Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  image,
-                  //'assets/images/lofi.jpg',
-                  height: 80,
-                  width: 80,
-                ),
+              QueryArtworkWidget(
+                keepOldArtwork: true,
+                artworkBorder: BorderRadius.circular(10),
+                id: image,
+                artworkHeight: 80,
+                artworkWidth: 80,
+                type: ArtworkType.AUDIO,
               ),
               SizedBox(
                 width: 15,
@@ -231,24 +240,32 @@ InkWell listtile(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    song,
-                    style: GoogleFonts.raleway(
-                      textStyle: TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                  Container(
+                    width: 140,
+                    child: Text(
+                      song,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.raleway(
+                        textStyle: TextStyle(
+                            letterSpacing: .5,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    artist,
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        letterSpacing: .5,
-                        fontSize: 15,
+                  Container(
+                    width: 140,
+                    child: Text(
+                      artist,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                          letterSpacing: .5,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                   ),
@@ -276,34 +293,319 @@ InkWell listtile(
               ),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      log('i also play button');
-                    },
-                    icon: Icon(
-                      Icons.play_circle_sharp,
-                      color: Colors.deepPurpleAccent,
-                      size: 45,
-                    ),
+                  Icon(
+                    Icons.play_circle_sharp,
+                    color: Colors.deepPurpleAccent,
+                    size: 45,
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 10.0),
-                  //   child: InkWell(
-                  //     onTap: () {
-                  //       log('i am more button vertical');
-                  //     },
-                  //     child: Image.asset(
-                  //       'assets/images/menu.png',
-                  //       height: 43,
-                  //     ),
-                  //   ),
-                  // )
-                  popupmenu(),
+                  IconButton(
+                      onPressed: () {
+                        showOptions(context, index);
+                      },
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: Colors.black,
+                      ))
                 ],
               ),
             ],
           ),
         ],
+      ),
+    ),
+  );
+}
+
+//show dialogue
+showOptions(BuildContext context, int index) {
+  double vwidth = MediaQuery.of(context).size.width;
+  showDialog(
+    context: context,
+    builder: (context) => StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          insetPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.zero,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          backgroundColor: Colors.deepPurpleAccent,
+          alignment: Alignment.bottomCenter,
+          content: Container(
+            height: 50,
+            width: vwidth,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // TextButton.icon(
+                  //     onPressed: () {
+                  //       if (checkFavoriteStatus(index, BuildContext)) {
+                  //         addfavour(index);
+                  //         log('added');
+                  //       } else if (!checkFavoriteStatus(index, BuildContext)) {
+                  //         //     deletefavourite(index);
+                  //       }
+                  //       setState(() {});
+
+                  //       Navigator.pop(context);
+                  //     },
+                  //     icon: (checkFavoriteStatus(index, context))
+                  //         ? const Icon(
+                  //             Icons.favorite_border_outlined,
+                  //             color: Colors.white,
+                  //           )
+                  //         : Icon(
+                  //             Icons.favorite,
+                  //             color: Colors.white,
+                  //           ),
+                  //     label: (checkFavoriteStatus(index, context))
+                  //         ? Text(
+                  //             'Add to Favourites',
+                  //             style:
+                  //                 TextStyle(color: Colors.white, fontSize: 17),
+                  //           )
+                  //         : Text(
+                  //             'Remove from Favourites',
+                  //             style:
+                  //                 TextStyle(color: Colors.white, fontSize: 17),
+                  //           )),
+                  TextButton.icon(
+                      onPressed: () {
+                        showPlaylistOptions(context, index);
+                      },
+                      icon: const Icon(
+                        Icons.playlist_add_sharp,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Add to Playlist',
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      )),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}
+
+showPlaylistOptions(BuildContext context, int songindex) {
+  final box = PlaylistSongsbox.getInstance();
+  final songbox = SongBox.getInstance();
+  double vwidth = MediaQuery.of(context).size.width;
+  showDialog(
+    context: context,
+    builder: (context) => StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
+          insetPadding: EdgeInsets.zero,
+          contentPadding: EdgeInsets.zero,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          backgroundColor: Colors.deepPurpleAccent,
+          alignment: Alignment.bottomCenter,
+          content: Container(
+            height: 200,
+            width: vwidth,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ValueListenableBuilder<Box<PlaylistSongs>>(
+                      valueListenable: box.listenable(),
+                      builder:
+                          (context, Box<PlaylistSongs> playlistsongs, child) {
+                        List<PlaylistSongs> playlistsong =
+                            playlistsongs.values.toList();
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: playlistsong.length,
+                          itemBuilder: ((context, index) {
+                            return ListTile(
+                              onTap: () {
+                                PlaylistSongs? playsongs =
+                                    playlistsongs.getAt(index);
+                                List<Songs> playsongdb =
+                                    playsongs!.playlistssongs!;
+                                List<Songs> songdb = songbox.values.toList();
+                                bool isAlreadyAdded = playsongdb.any(
+                                    (element) =>
+                                        element.id == songdb[songindex].id);
+                                if (!isAlreadyAdded) {
+                                  playsongdb.add(
+                                    Songs(
+                                      songname: songdb[songindex].songname,
+                                      artist: songdb[songindex].artist,
+                                      duration: songdb[songindex].duration,
+                                      songurl: songdb[songindex].songurl,
+                                      id: songdb[songindex].id,
+                                    ),
+                                  );
+                                }
+                                playlistsongs.putAt(
+                                    index,
+                                    PlaylistSongs(
+                                        playlistname:
+                                            playlistsong[index].playlistname,
+                                        playlistssongs: playsongdb));
+                                // ignore: avoid_print
+                                print(
+                                    'song added to${playlistsong[index].playlistname}');
+                                Navigator.pop(context);
+                              },
+                              title: Text(
+                                playlistsong[index].playlistname!,
+                                style: GoogleFonts.raleway(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            );
+                          }),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}
+
+//add playlist naming
+showPlaylistOptionsadd(BuildContext context) {
+  final myController = TextEditingController();
+  double vwidth = MediaQuery.of(context).size.width;
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
+      ),
+      insetPadding: EdgeInsets.zero,
+      contentPadding: EdgeInsets.zero,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      backgroundColor: Colors.deepPurpleAccent,
+      alignment: Alignment.bottomCenter,
+      content: Container(
+        height: 250,
+        width: vwidth,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Center(
+                  child: Text(
+                    'New Playlist',
+                    style:
+                        GoogleFonts.raleway(fontSize: 25, color: Colors.white),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      width: vwidth * 0.90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      child: TextFormField(
+                        controller: myController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: Colors.white10,
+                          label: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              'Enter Playlist Name:',
+                              style: GoogleFonts.raleway(
+                                  fontSize: 20, color: Colors.black),
+                            ),
+                          ),
+                          // alignLabelWithHint: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: vwidth * 0.43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.white,
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        label: Text(
+                          'Cancel',
+                          style: GoogleFonts.raleway(
+                              fontSize: 20, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: vwidth * 0.43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.done,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          newplaylist(myController.text);
+                          Navigator.pop(context);
+                        },
+                        label: Text(
+                          'Done',
+                          style: GoogleFonts.raleway(
+                              fontSize: 20, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     ),
   );
@@ -315,6 +617,10 @@ PopupMenuButton<int> popupmenu() {
     itemBuilder: (context) => [
       // PopupMenuItem 1
       PopupMenuItem(
+        onTap: () {
+          log('Added to favourites');
+          // addfavour(context,index,);
+        },
         value: 1,
         // row with 2 children
         child: Row(
@@ -332,11 +638,11 @@ PopupMenuButton<int> popupmenu() {
         // row with two children
         child: Row(
           children: const [
-            Icon(Icons.delete),
+            Icon(Icons.add_circle_outline),
             SizedBox(
               width: 10,
             ),
-            Text("Delete")
+            Text("Add To Playlist")
           ],
         ),
       ),
@@ -346,7 +652,7 @@ PopupMenuButton<int> popupmenu() {
 
 //favorite gridview functions
 Padding favorite(
-    {required String song, required String image, required String time}) {
+    {required String song, required int image, required int time}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, top: 10),
     child: Column(
@@ -356,13 +662,62 @@ Padding favorite(
           onTap: () => log('I am your favorite song'),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Image.asset(
-              image,
-              //'assets/images/default.png',
-              height: 140,
-              width: 140,
+            child: QueryArtworkWidget(
+              keepOldArtwork: true,
+              artworkBorder: BorderRadius.circular(10),
+              id: image,
+              artworkWidth: 140,
+              artworkHeight: 140,
+              type: ArtworkType.AUDIO,
             ),
           ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          song,
+          style: GoogleFonts.lato(
+            textStyle: TextStyle(
+                letterSpacing: .5, fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(
+          height: 2,
+        ),
+        Text(
+          'time',
+          // '04:47 Min',
+          style: GoogleFonts.lato(
+            textStyle: TextStyle(
+                letterSpacing: .5,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black38),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+//favourite to build dummy datas
+Padding favoritedummy(
+    {required String song, required String image, required String time}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 16.0, top: 10),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () => log('I am your favorite song'),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                image,
+                width: 140,
+                height: 140,
+              )),
         ),
         SizedBox(
           height: 5,
@@ -571,9 +926,7 @@ Widget settingselements(
           ),
           IconButton(
               onPressed: () {
-                if (page == 'account') {
-                  Navigator.of(context).pushNamed('account');
-                } else if (page == 'exit') {
+                if (page == 'exit') {
                   // SystemNavigator.pop();
                   return exit(context);
                 } else if (page == 'privacy') {

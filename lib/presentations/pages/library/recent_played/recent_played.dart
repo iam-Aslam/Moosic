@@ -3,14 +3,14 @@ import 'package:moosic/presentations/widgets/common.dart';
 
 import '../../../widgets/data.dart';
 
-class RecentlyPlayed extends StatefulWidget {
-  const RecentlyPlayed({super.key});
+class Recentlyplayed extends StatefulWidget {
+  const Recentlyplayed({super.key});
 
   @override
-  State<RecentlyPlayed> createState() => _RecentlyPlayedState();
+  State<Recentlyplayed> createState() => _RecentlyplayedState();
 }
 
-class _RecentlyPlayedState extends State<RecentlyPlayed> {
+class _RecentlyplayedState extends State<Recentlyplayed> {
   var orientation, size, height, width;
 
   @override
@@ -51,7 +51,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                           crossAxisCount: 2,
                           children: List.generate(
                             favorsong.length,
-                            (index) => favorite(
+                            (index) => favoritedummy(
                                 song: favorsong[index],
                                 image: favorimg[index],
                                 time: favortime[index]),

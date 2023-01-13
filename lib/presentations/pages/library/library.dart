@@ -32,13 +32,13 @@ class libraries extends StatelessWidget {
                     itemBuilder: ((context, index) => InkWell(
                           onTap: () {
                             if (index == 0) {
-                              Navigator.of(context).pushNamed('liked');
+                              Navigator.of(context).pushNamed('playlist');
                             } else if (index == 1) {
-                              Navigator.of(context).pushNamed('recent');
+                              Navigator.of(context).pushNamed('liked');
                             } else if (index == 2) {
+                              Navigator.of(context).pushNamed('recent');
+                            } else if (index == -3) {
                               Navigator.of(context).pushNamed('most');
-                            } else if (index == 3) {
-                              Navigator.of(context).pushNamed('download');
                             }
                           },
                           child: library(

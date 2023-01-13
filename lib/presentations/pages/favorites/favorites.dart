@@ -1,11 +1,44 @@
 // ignore_for_file: camel_case_types
-
+import 'dart:developer';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/widgets/common.dart';
-import '../../widgets/data.dart';
 
-class favorites extends StatelessWidget {
+class favorites extends StatefulWidget {
   const favorites({super.key});
+
+  @override
+  State<favorites> createState() => _favoritesState();
+}
+
+final player = AssetsAudioPlayer.withId('0');
+
+class _favoritesState extends State<favorites> {
+  final List<favourites> likedsongs = [];
+  final box = FavouriteBox.getInstance();
+  late List<favourites> liked = box.values.toList();
+  // bool isadded = true;
+  List<Audio> favsong = [];
+  @override
+  void initState() {
+    final List<favourites> likedsong = box.values.toList().reversed.toList();
+    for (var i in likedsong) {
+      favsong.add(
+        Audio.file(
+          i.songurl.toString(),
+          metas: Metas(
+            artist: i.artist,
+            title: i.songname,
+            id: i.id.toString(),
+          ),
+        ),
+      );
+    }
+    setState(() {});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +60,27 @@ class favorites extends StatelessWidget {
             children: [
               header(context),
               titlesfav(title: 'Favorites'),
-              Expanded(
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  children: List.generate(
-                    favorsong.length,
-                    (index) => favorite(
-                        song: favorsong[index],
-                        image: favorimg[index],
-                        time: favortime[index]),
-                  ),
-                ),
+              ValueListenableBuilder<Box<favourites>>(
+                valueListenable: box.listenable(),
+                builder: (context, Box<favourites> dbfavour, child) {
+                  List<favourites> likedsongs =
+                      dbfavour.values.toList().reversed.toList();
+                  log(likedsongs.toString());
+
+                  return Expanded(
+                    child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        likedsongs.length,
+                        (index) => favorite(
+                            song: likedsongs[index].songname!,
+                            image: likedsongs[index].id!,
+                            time: likedsongs[index].duration!),
+                      ),
+                    ),
+                  );
+                },
               )
             ],
           ),

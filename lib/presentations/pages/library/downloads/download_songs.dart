@@ -15,12 +15,9 @@ class _DownloadsState extends State<Downloads> {
   @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;
-
     //size of the window
     size = MediaQuery.of(context).size;
-
     height = size.height;
-
     width = size.width;
     return SafeArea(
       child: Scaffold(
@@ -50,7 +47,7 @@ class _DownloadsState extends State<Downloads> {
                           crossAxisCount: 2,
                           children: List.generate(
                             favorsong.length,
-                            (index) => favorite(
+                            (index) => favoritedummy(
                                 song: favorsong[index],
                                 image: favorimg[index],
                                 time: favortime[index]),

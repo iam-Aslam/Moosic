@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 final PlaylistImages = [
   'assets/images/lofi.jpg',
   'assets/images/romantic.jpg',
@@ -87,22 +89,22 @@ final favortime = [
 //Library Elements are given below
 //lib images
 final lib_img = [
+  'assets/images/playlist.jpg',
   'assets/images/liked.jpg',
   'assets/images/recently.jpg',
   'assets/images/favorite.png',
-  'assets/images/downloads.png',
 ];
 //lib titles
 final lib_titles = [
+  'Playlists',
   'Liked Songs',
   'Recent Songs',
   'Most Played',
-  'Downloads',
 ];
 //lib counts of songs
 final lib_counts = [
+  '45 Songs',
   '87 Songs',
   '29 Songs',
   '167 Songs',
-  '38 Songs',
 ];
