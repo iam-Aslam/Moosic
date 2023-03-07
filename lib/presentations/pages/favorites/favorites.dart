@@ -66,6 +66,7 @@ class _favoritesState extends State<favorites> {
                   List<favourites> likedsongs =
                       dbfavour.values.toList().reversed.toList();
                   log(likedsongs.toString());
+                  //log(likedsongs[0].songname!);
 
                   return Expanded(
                     child: GridView.count(
@@ -74,6 +75,7 @@ class _favoritesState extends State<favorites> {
                       children: List.generate(
                         likedsongs.length,
                         (index) => favorite(
+                            index: index,
                             song: likedsongs[index].songname!,
                             image: likedsongs[index].id!,
                             time: likedsongs[index].duration!),

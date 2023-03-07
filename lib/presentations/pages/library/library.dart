@@ -34,10 +34,8 @@ class libraries extends StatelessWidget {
                             if (index == 0) {
                               Navigator.of(context).pushNamed('playlist');
                             } else if (index == 1) {
-                              Navigator.of(context).pushNamed('liked');
-                            } else if (index == 2) {
                               Navigator.of(context).pushNamed('recent');
-                            } else if (index == -3) {
+                            } else if (index == 2) {
                               Navigator.of(context).pushNamed('most');
                             }
                           },

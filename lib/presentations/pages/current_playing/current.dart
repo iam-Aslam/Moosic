@@ -100,14 +100,29 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       IconButton(
-                                        onPressed: () {
-                                          addfavour(value);
-                                        },
-                                        icon: const Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.deepPurpleAccent,
-                                        ),
-                                      ),
+                                          onPressed: () {
+                                            if (checkFavour(
+                                                value, BuildContext)) {
+                                              addfavour(value);
+                                            } else if (!checkFavour(
+                                                value, BuildContext)) {
+                                              removefavour(value);
+                                            }
+                                            setState(() {});
+                                          },
+                                          icon: (checkFavour(
+                                                  value, BuildContext))
+                                              ? const Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  color:
+                                                      Colors.deepPurpleAccent,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite,
+                                                  color:
+                                                      Colors.deepPurpleAccent,
+                                                )),
                                     ],
                                   ),
                                   Container(

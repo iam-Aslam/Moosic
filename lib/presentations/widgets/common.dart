@@ -652,9 +652,12 @@ PopupMenuButton<int> popupmenu() {
 
 //favorite gridview functions
 Padding favorite(
-    {required String song, required int image, required int time}) {
+    {required String song,
+    required int image,
+    required int time,
+    required int index}) {
   return Padding(
-    padding: const EdgeInsets.only(left: 16.0, top: 10),
+    padding: const EdgeInsets.only(left: 16.0, top: 0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -672,30 +675,59 @@ Padding favorite(
             ),
           ),
         ),
-        SizedBox(
-          height: 5,
+        // SizedBox(
+        //   height: 0,
+        // ),
+        Row(
+          children: [
+            Container(
+              width: 112,
+              child: Text(
+                song,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.lato(
+                  textStyle: TextStyle(
+                      letterSpacing: .5,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            PopupMenuButton<int>(
+              itemBuilder: (context) => [
+                // PopupMenuItem 1
+                PopupMenuItem(
+                  onTap: () {
+                    removefavour(index);
+                  },
+                  value: 1,
+                  // row with 2 children
+                  child: Row(
+                    children: const [
+                      Icon(Icons.delete),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("Remove")
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        Text(
-          song,
-          style: GoogleFonts.lato(
-            textStyle: TextStyle(
-                letterSpacing: .5, fontSize: 14, fontWeight: FontWeight.bold),
-          ),
-        ),
-        SizedBox(
-          height: 2,
-        ),
-        Text(
-          'time',
-          // '04:47 Min',
-          style: GoogleFonts.lato(
-            textStyle: TextStyle(
-                letterSpacing: .5,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.black38),
-          ),
-        )
+
+        // Text(
+        //   '',
+        //   // '04:47 Min',
+        //   style: GoogleFonts.lato(
+        //     textStyle: TextStyle(
+        //         letterSpacing: .5,
+        //         fontSize: 12,
+        //         fontWeight: FontWeight.bold,
+        //         color: Colors.black38),
+        //   ),
+        // )
       ],
     ),
   );

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,7 +6,6 @@ import 'package:moosic/presentations/pages/playlist/single_playlist/current_play
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../../Data/Models/models/playlistmodel.dart';
-import '../../widgets/data.dart';
 
 class Playlist extends StatefulWidget {
   const Playlist({super.key});
