@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
+import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
@@ -202,6 +203,8 @@ Padding titlesinglep({required String title}) {
 
 //main page list tile
 InkWell listtile({
+  RecentlyPlayedModel? recent,
+  required Songs songs,
   required int image,
   required String song,
   required String artist,
@@ -215,6 +218,16 @@ InkWell listtile({
       log('i am listtile');
       home.currentvalue.value = index;
       current.currentvalue.value = index;
+      //setState(() {});
+      recent = RecentlyPlayedModel(
+        index: index,
+        id: songs.id,
+        artist: songs.artist,
+        duration: songs.duration,
+        songname: songs.songname,
+        songurl: songs.songurl,
+      );
+      addRecently(recent!);
       Navigator.of(context).pushNamed('current');
     },
     child: Container(

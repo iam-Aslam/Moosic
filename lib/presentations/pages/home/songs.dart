@@ -86,7 +86,7 @@ class _songsState extends State<songs> {
                           builder: ((context, Box<Songs> allsongbox, child) {
                             List<Songs> songlist_db =
                                 allsongbox.values.toList();
-                            RecentlyPlayed recentlyplaysong;
+                            RecentlyPlayedModel recentlyplaysong;
 
                             return Container(
                               decoration: const BoxDecoration(
@@ -112,10 +112,12 @@ class _songsState extends State<songs> {
                                         child: ListView.separated(
                                             shrinkWrap: true,
                                             itemBuilder: ((context, index) {
-                                              RecentlyPlayed recentsong;
+                                              RecentlyPlayedModel? recentsong;
                                               Songs currentsongindex =
                                                   songlist_db[index];
                                               return listtile(
+                                                songs: currentsongindex,
+                                                recent: recentsong,
                                                 isadded: isadded,
                                                 context: context,
                                                 index: index,

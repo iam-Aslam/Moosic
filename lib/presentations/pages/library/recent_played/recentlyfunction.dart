@@ -1,9 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 
-late Box<RecentlyPlayed> recentplaybox;
-addRecentPlay(RecentlyPlayed value) {
-  List<RecentlyPlayed> recentList = recentplaybox.values.toList();
+late Box<RecentlyPlayedModel> recentplaybox;
+addRecentPlay(RecentlyPlayedModel value) {
+  List<RecentlyPlayedModel> recentList = recentplaybox.values.toList();
   bool isAdded =
       recentList.where((element) => element.songname == value.songname).isEmpty;
   if (isAdded == true) {
