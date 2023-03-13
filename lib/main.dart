@@ -6,7 +6,6 @@ import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
-import 'package:moosic/presentations/pages/library/downloads/download_songs.dart';
 import 'package:moosic/presentations/pages/library/most_played/most_played.dart';
 import 'package:moosic/presentations/pages/library/recent_played/recent_played.dart';
 import 'package:moosic/presentations/pages/liked_songs/liked.dart';
@@ -51,7 +50,6 @@ class MyApp extends StatelessWidget {
           'liked': (context) => const LikedSongs(),
           'most': (context) => const MostPlayed(),
           'recent': (context) => const Recentlyplayed(),
-          'download': (context) => const Downloads(),
           'playlist': (context) => const Playlist(),
           'settings': (context) => const settings(),
           'privacy': (context) => const Privacy(),

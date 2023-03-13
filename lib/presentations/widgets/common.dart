@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, camel_case_types
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,8 +13,6 @@ import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
-import '../../Data/Models/models/favouriteModel.dart';
 
 class common extends StatelessWidget {
   const common({super.key});
@@ -228,6 +226,7 @@ InkWell listtile({
         songurl: songs.songurl,
       );
       addRecently(recent!);
+
       Navigator.of(context).pushNamed('current');
     },
     child: Container(
@@ -748,7 +747,7 @@ Padding favorite(
 
 //favourite to build dummy datas
 Padding favoritedummy(
-    {required String song, required String image, required String time}) {
+    {required String song, required int image, required int time}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, top: 10),
     child: Column(
@@ -757,37 +756,42 @@ Padding favoritedummy(
         InkWell(
           onTap: () => log('I am your favorite song'),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                image,
-                width: 140,
-                height: 140,
-              )),
+            borderRadius: BorderRadius.circular(15),
+            child: QueryArtworkWidget(
+              keepOldArtwork: true,
+              artworkBorder: BorderRadius.circular(10),
+              id: image,
+              artworkWidth: 140,
+              artworkHeight: 140,
+              type: ArtworkType.AUDIO,
+            ),
+          ),
         ),
         SizedBox(
           height: 5,
         ),
         Text(
           song,
+          overflow: TextOverflow.ellipsis,
           style: GoogleFonts.lato(
             textStyle: TextStyle(
                 letterSpacing: .5, fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(
-          height: 2,
-        ),
-        Text(
-          time,
-          // '04:47 Min',
-          style: GoogleFonts.lato(
-            textStyle: TextStyle(
-                letterSpacing: .5,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.black38),
-          ),
-        )
+        // SizedBox(
+        //   height: 2,
+        // ),
+        // Text(
+        //   '$time',
+        //   // '04:47 Min',
+        //   style: GoogleFonts.lato(
+        //     textStyle: TextStyle(
+        //         letterSpacing: .5,
+        //         fontSize: 12,
+        //         fontWeight: FontWeight.bold,
+        //         color: Colors.black38),
+        //   ),
+        // )
       ],
     ),
   );

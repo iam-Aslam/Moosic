@@ -10,7 +10,7 @@ class LikedSongs extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         //height: double.infinity,
         // decoration: const BoxDecoration(
@@ -26,19 +26,19 @@ class LikedSongs extends StatelessWidget {
             children: [
               headerpages(context),
               titlesfav(title: 'Favorites'),
-              Expanded(
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  children: List.generate(
-                    favorsong.length,
-                    (index) => favoritedummy(
-                        song: favorsong[index],
-                        image: favorimg[index],
-                        time: favortime[index]),
-                  ),
-                ),
-              )
+              //Expanded(
+              //   child: GridView.count(
+              //     shrinkWrap: true,
+              //     crossAxisCount: 2,
+              //     children: List.generate(
+              //       favorsong.length,
+              //       (index) => favoritedummy(
+              //           song: favorsong[index],
+              //           image: favorimg[index],
+              //           time: favortime[index]),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

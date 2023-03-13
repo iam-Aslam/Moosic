@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import '../models/favouriteModel.dart';
@@ -20,10 +22,12 @@ addRecently(RecentlyPlayedModel value) {
       list.where((element) => element.songname == value.songname).isEmpty;
   if (isAlready == true) {
     RecentlyPlayedBox.add(value);
+    log('$value');
   } else {
     int index =
         list.indexWhere((element) => element.songname == value.songname);
     RecentlyPlayedBox.deleteAt(index);
     RecentlyPlayedBox.delete(value);
   }
+  print(list);
 }
