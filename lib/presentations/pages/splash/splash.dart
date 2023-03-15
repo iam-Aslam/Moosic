@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, camel_case_types
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -14,6 +15,7 @@ class splash_screen extends StatefulWidget {
 class _splash_screenState extends State<splash_screen> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   final box = SongBox.getInstance();
+  final mostbox = MostplayedBox.getInstance();
   List<SongModel> fetchSongs = [];
   List<SongModel> allSongs = [];
 
@@ -21,6 +23,15 @@ class _splash_screenState extends State<splash_screen> {
   void initState() {
     goHome();
     requestStoragepermission();
+    for (var items in allSongs) {
+      mostbox.add(MostPlayed(
+          songname: items.title,
+          songurl: items.uri!,
+          duration: items.duration!,
+          artist: items.artist!,
+          count: 0,
+          id: items.id));
+    }
     super.initState();
   }
 

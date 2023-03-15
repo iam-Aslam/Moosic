@@ -2,6 +2,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,8 +16,11 @@ class songs extends StatefulWidget {
   State<songs> createState() => _songsState();
 }
 
+final mostbox = MostplayedBox.getInstance();
+
 final OnAudioQuery audioQuery = OnAudioQuery();
 final AssetsAudioPlayer player = AssetsAudioPlayer();
+final List<MostPlayed> mostplayed = mostbox.values.toList();
 
 class _songsState extends State<songs> {
   final box = SongBox.getInstance();
@@ -27,8 +31,15 @@ class _songsState extends State<songs> {
     List<Songs> song_database = box.values.toList();
 
     for (var i in song_database) {
-      Converted_songs.add(Audio.file(i.songurl!,
-          metas: Metas(title: i.songname, id: i.id.toString())));
+      Converted_songs.add(
+        Audio.file(
+          i.songurl!,
+          metas: Metas(
+            title: i.songname,
+            id: i.id.toString(),
+          ),
+        ),
+      );
     }
     super.initState();
   }
@@ -86,8 +97,6 @@ class _songsState extends State<songs> {
                           builder: ((context, Box<Songs> allsongbox, child) {
                             List<Songs> songlist_db =
                                 allsongbox.values.toList();
-                            RecentlyPlayedModel recentlyplaysong;
-
                             return Container(
                               decoration: const BoxDecoration(
                                 border: Border(
@@ -115,7 +124,10 @@ class _songsState extends State<songs> {
                                               RecentlyPlayedModel? recentsong;
                                               Songs currentsongindex =
                                                   songlist_db[index];
+                                              MostPlayed mostplayedsong =
+                                                  mostplayed[index];
                                               return listtile(
+                                                mostsong: mostplayedsong,
                                                 songs: currentsongindex,
                                                 recent: recentsong,
                                                 isadded: isadded,

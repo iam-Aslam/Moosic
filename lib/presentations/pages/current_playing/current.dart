@@ -1,5 +1,4 @@
 // ignore_for_file: sized_box_for_whitespace, camel_case_types
-import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';

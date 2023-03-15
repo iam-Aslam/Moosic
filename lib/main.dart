@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
+import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
@@ -25,7 +26,9 @@ void main() async {
   await Hive.openBox<Songs>(boxname);
   Hive.registerAdapter(favouritesAdapter());
   openfavourite();
-  Hive.registerAdapter(RecentlyPlayedAdapter());
+  Hive.registerAdapter(MostPlayedAdapter());
+  openmostplayeddb();
+  Hive.registerAdapter(RecentlyPlayedModelAdapter());
   openrecentlyplayeddb();
   Hive.registerAdapter(PlaylistSongsAdapter());
   await Hive.openBox<PlaylistSongs>('playlist');
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
           'home': (context) => home(),
           'current': (context) => const current(),
           'liked': (context) => const LikedSongs(),
-          'most': (context) => const MostPlayed(),
+          'most': (context) => const MostPlayedPage(),
           'recent': (context) => const Recentlyplayed(),
           'playlist': (context) => const Playlist(),
           'settings': (context) => const settings(),

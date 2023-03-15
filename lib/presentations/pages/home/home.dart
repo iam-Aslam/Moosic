@@ -44,9 +44,14 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
   void initState() {
     List<Songs> dbsongs = box.values.toList();
     for (var i in dbsongs) {
-      convertAudios.add(Audio.file(i.songurl!,
-          metas:
-              Metas(title: i.songname, artist: i.artist, id: i.id.toString())));
+      convertAudios.add(Audio.file(
+        i.songurl!,
+        metas: Metas(
+          title: i.songname,
+          artist: i.artist,
+          id: i.id.toString(),
+        ),
+      ));
     }
     audioPlayer.open(
         Playlist(

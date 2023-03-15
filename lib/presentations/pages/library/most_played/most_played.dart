@@ -1,20 +1,46 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, prefer_typing_uninitialized_variables
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-
+import 'package:moosic/Data/Models/models/mostplayed.dart';
 import '../../../widgets/common.dart';
-import '../../../widgets/data.dart';
 
-class MostPlayed extends StatefulWidget {
-  const MostPlayed({super.key});
+class MostPlayedPage extends StatefulWidget {
+  const MostPlayedPage({super.key});
 
   @override
-  State<MostPlayed> createState() => _MostPlayedState();
+  State<MostPlayedPage> createState() => _MostPlayedPageState();
 }
 
-class _MostPlayedState extends State<MostPlayed> {
+class _MostPlayedPageState extends State<MostPlayedPage> {
   var orientation, size, height, width;
 
+  final box = MostplayedBox.getInstance();
+  final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
+  List<Audio> songs = [];
+
+  @override
+  void initState() {
+    List<MostPlayed> mostsong = box.values.toList();
+    int i = 0;
+    for (var element in mostsong) {
+      if (element.count > 3) {
+        mostplayedsongs.insert(i, element);
+        i++;
+      }
+    }
+    for (var items in mostplayedsongs) {
+      songs.add(Audio.file(items.songurl,
+          metas: Metas(
+              title: items.songname,
+              artist: items.artist,
+              id: items.id.toString())));
+    }
+
+    super.initState();
+  }
+
+  List<MostPlayed> mostplayedsongs = [];
   @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;
