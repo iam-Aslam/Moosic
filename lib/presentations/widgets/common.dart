@@ -207,7 +207,7 @@ InkWell listtile({
   required int image,
   required String song,
   required String artist,
-  required String duration,
+  // required String duration,
   required int index,
   required bool isadded,
   required BuildContext context,
@@ -239,13 +239,16 @@ InkWell listtile({
         children: [
           Row(
             children: [
-              QueryArtworkWidget(
-                keepOldArtwork: true,
-                artworkBorder: BorderRadius.circular(10),
-                id: image,
-                artworkHeight: 80,
-                artworkWidth: 80,
-                type: ArtworkType.AUDIO,
+              Container(
+                width: 80,
+                child: QueryArtworkWidget(
+                  keepOldArtwork: true,
+                  artworkBorder: BorderRadius.circular(10),
+                  id: image,
+                  artworkHeight: 80,
+                  artworkWidth: 80,
+                  type: ArtworkType.AUDIO,
+                ),
               ),
               SizedBox(
                 width: 15,
@@ -286,15 +289,15 @@ InkWell listtile({
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    duration,
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 12,
-                          color: Colors.black38),
-                    ),
-                  ),
+                  // Text(
+                  //   duration,
+                  //   style: GoogleFonts.roboto(
+                  //     textStyle: TextStyle(
+                  //         letterSpacing: .5,
+                  //         fontSize: 12,
+                  //         color: Colors.black38),
+                  //   ),
+                  // ),
                 ],
               )
             ],
@@ -848,7 +851,7 @@ Padding library(
       width: 340,
       height: 110,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -859,22 +862,27 @@ Padding library(
               width: 110,
             ),
           ),
+          SizedBox(
+            width: 30,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                // 'Liked Songs',
-                style: GoogleFonts.sahitya(
-                  textStyle: TextStyle(
-                      letterSpacing: .5,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold),
+              Container(
+                width: 200,
+                //color: Colors.amberAccent,
+                child: Text(
+                  title,
+                  style: GoogleFonts.sahitya(
+                    textStyle: TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Text(
                 subtitle,
-                //'18 Songs',
                 style: GoogleFonts.abel(
                   textStyle: TextStyle(
                       letterSpacing: .5,
@@ -882,12 +890,6 @@ Padding library(
                       fontWeight: FontWeight.bold),
                 ),
               ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              menubarlib(context: context),
             ],
           ),
         ],

@@ -1,5 +1,4 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
-import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
-import 'package:moosic/presentations/widgets/data.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../widgets/common.dart';
+import '../current_playing/current.dart';
 
 class songs extends StatefulWidget {
   const songs({super.key});
@@ -48,11 +48,17 @@ class _songsState extends State<songs> {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
+    //size of the window
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return SafeArea(
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          height: 690,
+          height: height / 1.24,
+          //  color: Colors.amberAccent,
           decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(width: 1.0, color: Colors.black26),
@@ -85,7 +91,7 @@ class _songsState extends State<songs> {
                                 ),
                               ),
                               width: 400,
-                              height: 620,
+                              height: height / 1.39,
                               child: Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
@@ -101,8 +107,6 @@ class _songsState extends State<songs> {
                                         child: ListView.separated(
                                             shrinkWrap: true,
                                             itemBuilder: ((context, index) {
-                                              //log(songlist_db.length.toString());
-
                                               RecentlyPlayedModel? recentsong;
                                               //Songs currentsongindex =
                                               //songlist_db[index];
@@ -121,9 +125,6 @@ class _songsState extends State<songs> {
                                                 artist:
                                                     songlist_db[index].artist ??
                                                         "No Artist",
-                                                duration: Songtime[index],
-                                                // duration: songlist_db[index]
-                                                //     .duration!,
                                               );
                                             }),
                                             separatorBuilder:

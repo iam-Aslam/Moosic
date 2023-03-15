@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:moosic/presentations/widgets/data.dart';
 
@@ -9,11 +10,16 @@ class libraries extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
+    //size of the window
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return SafeArea(
         child: Scaffold(
       body: Container(
         width: double.infinity,
-        height: 690,
+        height: height / 1.26,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1.0, color: Colors.black26),

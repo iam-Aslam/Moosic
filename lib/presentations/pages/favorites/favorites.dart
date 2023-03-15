@@ -4,6 +4,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
+import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
 class favorites extends StatefulWidget {
@@ -42,11 +43,16 @@ class _favoritesState extends State<favorites> {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
+    //size of the window
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return SafeArea(
         child: Scaffold(
       body: Container(
         width: double.infinity,
-        height: 690,
+        height: height / 1.26,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1.0, color: Colors.black26),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
 class settings extends StatelessWidget {
@@ -6,12 +7,17 @@ class settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
+    //size of the window
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return Center(
         child: SafeArea(
             child: Scaffold(
       body: Container(
         width: double.infinity,
-        height: 690,
+        height: height / 1.26,
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(width: 1.0, color: Colors.black12),

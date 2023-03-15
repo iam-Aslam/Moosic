@@ -13,7 +13,7 @@ import 'package:moosic/presentations/pages/settings/settings.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class home extends StatefulWidget {
-  home({super.key});
+  const home({super.key});
 
   static int? index = 0;
   static ValueNotifier<int> currentvalue = ValueNotifier<int>(index!);
@@ -32,7 +32,6 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
   late AnimationController iconcontroller;
   bool isAnimated = false;
   bool isplaying = false;
-
   int currentselected = 0;
   final pages = const [
     songs(),
@@ -69,6 +68,11 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
+    //size of the window
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return SafeArea(
         child: Scaffold(
       body: pages[currentselected],
@@ -120,16 +124,16 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
                     Navigator.of(context).pushNamed('current');
                   },
                   child: Container(
-                    height: 50,
+                    height: height / 14,
                     child: Row(
                       children: [
                         const SizedBox(
-                          width: 12,
+                          width: 18,
                         ),
                         QueryArtworkWidget(
                           quality: 100,
-                          artworkWidth: 49,
-                          artworkHeight: 49,
+                          artworkWidth: width / 6.5,
+                          artworkHeight: height / 13.5,
                           keepOldArtwork: true,
                           artworkBorder: BorderRadius.circular(30),
                           id: alldbsongs[value].id!,
@@ -143,27 +147,31 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: 145,
-                              // color: Colors.amberAccent,
+                              width: width / 3,
+                              //color: Colors.amberAccent,
                               child: Text(
                                 alldbsongs[value].songname!,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 15),
+                                style: const TextStyle(fontSize: 20),
                               ),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
                             Container(
-                              width: 120,
+                              width: width / 3,
+                              //color: Colors.amberAccent,
                               child: Text(
                                 alldbsongs[value].artist!,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    fontSize: 13, color: Colors.black38),
+                                    fontSize: 15, color: Colors.black38),
                               ),
                             ),
                           ],
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                         IconButton(
                           onPressed: () {

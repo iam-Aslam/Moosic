@@ -4,8 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
-import '../../../widgets/data.dart';
-
 class Recentlyplayed extends StatefulWidget {
   const Recentlyplayed({super.key});
 
@@ -16,6 +14,7 @@ class Recentlyplayed extends StatefulWidget {
 final player = AssetsAudioPlayer.withId('0');
 
 class _RecentlyplayedState extends State<Recentlyplayed> {
+  // ignore: prefer_typing_uninitialized_variables
   var orientation, size, height, width;
   final List<RecentlyPlayedModel> recentsongs = [];
   final box = RecentlyPlayedBox.getInstance();
