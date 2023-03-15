@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
-import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
@@ -203,7 +202,7 @@ Padding titlesinglep({required String title}) {
 //main page list tile
 InkWell listtile({
   RecentlyPlayedModel? recent,
-  required MostPlayed mostsong,
+  //required MostPlayed mostsong,
   required Songs songs,
   required int image,
   required String song,
@@ -228,7 +227,7 @@ InkWell listtile({
         songurl: songs.songurl,
       );
       addRecently(recent!);
-      addMostplayed(index, mostsong);
+      //addMostplayed(index, mostsong);
 
       Navigator.of(context).pushNamed('current');
     },

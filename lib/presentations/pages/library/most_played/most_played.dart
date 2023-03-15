@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_typing_uninitialized_variables
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
@@ -13,6 +11,7 @@ class MostPlayedPage extends StatefulWidget {
 }
 
 class _MostPlayedPageState extends State<MostPlayedPage> {
+  // ignore: prefer_typing_uninitialized_variables
   var orientation, size, height, width;
 
   final box = MostplayedBox.getInstance();
@@ -59,13 +58,13 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
             children: [
               Container(
                 width: width / 1,
-                height: height / 2.8,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: Image.asset(
-                    'assets/images/most.jpg',
-                  ),
-                ),
+                height: height / 16,
+                // child: FittedBox(
+                //   fit: BoxFit.fill,
+                //   child: Image.asset(
+                //     'assets/images/most.jpg',
+                //   ),
+                // ),
               ),
               Expanded(
                 child: Padding(

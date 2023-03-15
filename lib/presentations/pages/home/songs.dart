@@ -1,13 +1,15 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
+import 'package:moosic/presentations/widgets/data.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../widgets/common.dart';
-import '../../widgets/data.dart';
 
 class songs extends StatefulWidget {
   const songs({super.key});
@@ -66,29 +68,6 @@ class _songsState extends State<songs> {
                 Expanded(
                   child: Column(
                     children: [
-                      // titles(title: 'Playlists', context: context),
-                      // Container(
-                      //   height: 130,
-                      //   child: Expanded(
-                      //     child: Padding(
-                      //       padding:
-                      //           const EdgeInsets.only(left: 16.0, top: 15),
-                      //       child: ListView.separated(
-                      //         scrollDirection: Axis.horizontal,
-                      //         itemBuilder: (context, index) => playlist(
-                      //             context: context,
-                      //             name: PlaylistNames[index],
-                      //             image: PlaylistImages[index]),
-                      //         itemCount: PlaylistNames.length,
-                      //         separatorBuilder: (context, index) {
-                      //           return SizedBox(
-                      //             width: 20,
-                      //           );
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 16.0, right: 20, top: 10),
@@ -97,6 +76,7 @@ class _songsState extends State<songs> {
                           builder: ((context, Box<Songs> allsongbox, child) {
                             List<Songs> songlist_db =
                                 allsongbox.values.toList();
+                            //log(songlist_db.toString());
                             return Container(
                               decoration: const BoxDecoration(
                                 border: Border(
@@ -121,14 +101,16 @@ class _songsState extends State<songs> {
                                         child: ListView.separated(
                                             shrinkWrap: true,
                                             itemBuilder: ((context, index) {
+                                              //log(songlist_db.length.toString());
+
                                               RecentlyPlayedModel? recentsong;
-                                              Songs currentsongindex =
-                                                  songlist_db[index];
-                                              MostPlayed mostplayedsong =
-                                                  mostplayed[index];
+                                              //Songs currentsongindex =
+                                              //songlist_db[index];
+                                              // MostPlayed mostplayedsong =
+                                              //mostplayed[index];
                                               return listtile(
-                                                mostsong: mostplayedsong,
-                                                songs: currentsongindex,
+                                                // mostsong: mostplayed[index],
+                                                songs: songlist_db[index],
                                                 recent: recentsong,
                                                 isadded: isadded,
                                                 context: context,
@@ -139,7 +121,9 @@ class _songsState extends State<songs> {
                                                 artist:
                                                     songlist_db[index].artist ??
                                                         "No Artist",
-                                                duration: Songtime[0],
+                                                duration: Songtime[index],
+                                                // duration: songlist_db[index]
+                                                //     .duration!,
                                               );
                                             }),
                                             separatorBuilder:
