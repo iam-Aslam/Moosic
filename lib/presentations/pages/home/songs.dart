@@ -6,7 +6,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../widgets/common.dart';
 import '../current_playing/current.dart';

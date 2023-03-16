@@ -28,14 +28,12 @@ addRecently(RecentlyPlayedModel value) {
       list.where((element) => element.songname == value.songname).isEmpty;
   if (isAlready == true) {
     RecentlyPlayedBox.add(value);
-    log('$value');
   } else {
     int index =
         list.indexWhere((element) => element.songname == value.songname);
     RecentlyPlayedBox.deleteAt(index);
     RecentlyPlayedBox.delete(value);
   }
-  print(list);
 }
 
 addMostplayed(int index, MostPlayed value) {

@@ -81,10 +81,12 @@ class _favoritesState extends State<favorites> {
                       children: List.generate(
                         likedsongs.length,
                         (index) => favorite(
-                            index: index,
-                            song: likedsongs[index].songname!,
-                            image: likedsongs[index].id!,
-                            time: likedsongs[index].duration!),
+                          index: index,
+                          song: likedsongs[index].songname!,
+                          image: likedsongs[index].id!,
+                          time: likedsongs[index].duration!,
+                          context: context,
+                        ),
                       ),
                     ),
                   );

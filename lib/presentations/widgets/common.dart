@@ -668,18 +668,24 @@ PopupMenuButton<int> popupmenu() {
 }
 
 //favorite gridview functions
-Padding favorite(
-    {required String song,
-    required int image,
-    required int time,
-    required int index}) {
+Padding favorite({
+  required String song,
+  required int image,
+  required int time,
+  required int index,
+  required BuildContext context,
+}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, top: 0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () => log('I am your favorite song'),
+          onTap: () {
+            home.currentvalue.value = index;
+            current.currentvalue.value = index;
+            Navigator.of(context).pushNamed('current');
+          },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: QueryArtworkWidget(
@@ -710,27 +716,27 @@ Padding favorite(
                 ),
               ),
             ),
-            PopupMenuButton<int>(
-              itemBuilder: (context) => [
-                // PopupMenuItem 1
-                PopupMenuItem(
-                  onTap: () {
-                    removefavour(index);
-                  },
-                  value: 1,
-                  // row with 2 children
-                  child: Row(
-                    children: const [
-                      Icon(Icons.delete),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text("Remove")
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            // PopupMenuButton<int>(
+            //   itemBuilder: (context) => [
+            //     // PopupMenuItem 1
+            //     PopupMenuItem(
+            //       onTap: () {
+            //         removefavour(index);
+            //       },
+            //       value: 1,
+            //       // row with 2 children
+            //       child: Row(
+            //         children: const [
+            //           Icon(Icons.delete),
+            //           SizedBox(
+            //             width: 10,
+            //           ),
+            //           Text("Remove")
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
 
