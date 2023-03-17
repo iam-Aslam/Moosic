@@ -1,5 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import '../../../widgets/common.dart';
 
@@ -56,15 +58,9 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
         body: Stack(children: [
           Column(
             children: [
-              Container(
+              SizedBox(
                 width: width / 1,
                 height: height / 16,
-                // child: FittedBox(
-                //   fit: BoxFit.fill,
-                //   child: Image.asset(
-                //     'assets/images/most.jpg',
-                //   ),
-                // ),
               ),
               Expanded(
                 child: Padding(
@@ -72,20 +68,34 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                   child: Column(
                     children: [
                       titleslib(title: 'Most Played'),
-                      // Expanded(
-                      //   child: GridView.count(
-                      //     shrinkWrap: true,
-                      //     // physics: const NeverScrollableScrollPhysics(),
-                      //     crossAxisCount: 2,
-                      //     children: List.generate(
-                      //       favorsong.length,
-                      //       (index) => favoritedummy(
-                      //           song: favorsong[index],
-                      //           image: favorimg[index],
-                      //           time: favortime[index]),
-                      //     ),
-                      //   ),
-                      // )
+                      ValueListenableBuilder<Box<MostPlayed>>(
+                        valueListenable: box.listenable(),
+                        builder: (context, value, child) {
+                          return mostplayedsongs.isNotEmpty
+                              ? Expanded(
+                                  child: GridView.count(
+                                    shrinkWrap: true,
+                                    // physics: const NeverScrollableScrollPhysics(),
+                                    crossAxisCount: 2,
+                                    children: List.generate(
+                                      mostplayedsongs.length,
+                                      (index) => favoritedummy(
+                                          song: mostplayedsongs[index].songname,
+                                          image: mostplayedsongs[index].id,
+                                          time:
+                                              mostplayedsongs[index].duration),
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                    "Your most played songs will appear here!",
+                                    style:
+                                        GoogleFonts.kanit(color: Colors.black),
+                                  ),
+                                );
+                        },
+                      )
                     ],
                   ),
                 ),

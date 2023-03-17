@@ -13,6 +13,8 @@ import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../../Data/Models/models/mostplayed.dart';
+
 class common extends StatelessWidget {
   const common({super.key});
 
@@ -201,7 +203,7 @@ Padding titlesinglep({required String title}) {
 //main page list tile
 InkWell listtile({
   RecentlyPlayedModel? recent,
-  //required MostPlayed mostsong,
+  required List<MostPlayed> mostsong,
   required Songs songs,
   required int image,
   required String song,
@@ -226,7 +228,7 @@ InkWell listtile({
         songurl: songs.songurl,
       );
       addRecently(recent!);
-      //addMostplayed(index, mostsong);
+      addMostplayed(index, mostsong[index]);
 
       Navigator.of(context).pushNamed('current');
     },

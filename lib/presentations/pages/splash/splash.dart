@@ -23,15 +23,6 @@ class _splash_screenState extends State<splash_screen> {
   void initState() {
     goHome();
     requestStoragepermission();
-    for (var items in allSongs) {
-      mostbox.add(MostPlayed(
-          songname: items.title,
-          songurl: items.uri!,
-          duration: items.duration!,
-          artist: items.artist!,
-          count: 0,
-          id: items.id));
-    }
     super.initState();
   }
 
@@ -85,6 +76,15 @@ class _splash_screenState extends State<splash_screen> {
               id: i.id,
               songurl: i.uri,
               songname: i.title));
+        }
+        for (var items in allSongs) {
+          mostbox.add(MostPlayed(
+              songname: items.title,
+              songurl: items.uri!,
+              duration: items.duration!,
+              artist: items.artist!,
+              count: 0,
+              id: items.id));
         }
       }
     }

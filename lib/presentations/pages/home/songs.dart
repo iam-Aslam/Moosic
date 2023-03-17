@@ -1,5 +1,3 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -99,7 +97,7 @@ class _songsState extends State<songs> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       titlesingle(title: 'All Songs'),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Expanded(
@@ -107,12 +105,12 @@ class _songsState extends State<songs> {
                                             shrinkWrap: true,
                                             itemBuilder: ((context, index) {
                                               RecentlyPlayedModel? recentsong;
-                                              //Songs currentsongindex =
-                                              //songlist_db[index];
+                                              //  Songs currentsongindex =
+                                              //      songlist_db[index];
                                               // MostPlayed mostplayedsong =
-                                              //mostplayed[index];
+                                              //     mostplayed[index];
                                               return listtile(
-                                                // mostsong: mostplayed[index],
+                                                mostsong: mostplayed,
                                                 songs: songlist_db[index],
                                                 recent: recentsong,
                                                 isadded: isadded,
@@ -127,7 +125,8 @@ class _songsState extends State<songs> {
                                               );
                                             }),
                                             separatorBuilder:
-                                                ((context, index) => SizedBox(
+                                                ((context, index) =>
+                                                    const SizedBox(
                                                       height: 10,
                                                     )),
                                             itemCount: songlist_db.length),
