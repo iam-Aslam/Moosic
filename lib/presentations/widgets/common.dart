@@ -10,7 +10,6 @@ import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
-import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

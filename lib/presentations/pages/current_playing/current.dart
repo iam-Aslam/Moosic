@@ -1,4 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, camel_case_types
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
+import 'package:moosic/presentations/widgets/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class current extends StatefulWidget {
@@ -124,18 +127,34 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                 )),
                                     ],
                                   ),
-                                  Container(
-                                    width: 250,
-                                    child: Text(
-                                      allDbdongs[value].artist!,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.ebGaramond(
-                                        textStyle: TextStyle(
-                                            letterSpacing: .5,
-                                            fontSize: width / 14,
-                                            fontWeight: FontWeight.normal),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 250,
+                                        child: Text(
+                                          allDbdongs[value].artist!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.ebGaramond(
+                                            textStyle: TextStyle(
+                                                letterSpacing: .5,
+                                                fontSize: width / 14,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      const SizedBox(
+                                        width: 60,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            log('i am add to playlist in current playing screen');
+                                            showOptions(context, value);
+                                          },
+                                          icon: const Icon(
+                                            Icons.playlist_add_circle_sharp,
+                                            color: Colors.deepPurpleAccent,
+                                          ))
+                                    ],
                                   ),
                                   SizedBox(
                                     height: height / 30,

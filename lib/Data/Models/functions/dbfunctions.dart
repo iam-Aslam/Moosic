@@ -33,6 +33,7 @@ addRecently(RecentlyPlayedModel value) {
         list.indexWhere((element) => element.songname == value.songname);
     RecentlyPlayedBox.deleteAt(index);
     RecentlyPlayedBox.delete(value);
+    RecentlyPlayedBox.add(value);
   }
 }
 
