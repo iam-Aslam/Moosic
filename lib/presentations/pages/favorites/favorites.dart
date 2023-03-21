@@ -81,6 +81,8 @@ class _favoritesState extends State<favorites> {
                       children: List.generate(
                         likedsongs.length,
                         (index) => favorite(
+                          favour: favsong,
+                          audioPlayer: player,
                           index: index,
                           song: likedsongs[index].songname!,
                           image: likedsongs[index].id!,

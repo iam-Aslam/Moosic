@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, camel_case_types
 import 'dart:developer';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
+import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
@@ -248,6 +250,14 @@ InkWell listtile({
                   id: image,
                   artworkHeight: 80,
                   artworkWidth: 80,
+                  nullArtworkWidget: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/images/empty.jpg',
+                      height: 80,
+                      width: 80,
+                    ),
+                  ),
                   type: ArtworkType.AUDIO,
                 ),
               ),
@@ -670,6 +680,8 @@ PopupMenuButton<int> popupmenu() {
 
 //favorite gridview functions
 Padding favorite({
+  required List<Audio> favour,
+  required AssetsAudioPlayer audioPlayer,
   required String song,
   required int image,
   required int time,
@@ -683,8 +695,15 @@ Padding favorite({
       children: [
         InkWell(
           onTap: () {
+            // List fav =
+            //     FavouriteBox.getInstance().values.toList().reversed.toList();
+            // current.currentList.value = fav;
+            audioPlayer.open(Playlist(audios: favour, startIndex: 0),
+                showNotification: true,
+                headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
+                loopMode: LoopMode.playlist);
             home.currentvalue.value = index;
-            current.currentvalue.value = index;
+            //current.currentvalue.value = index;
             Navigator.of(context).pushNamed('current');
           },
           child: ClipRRect(
@@ -960,29 +979,27 @@ Widget settingselements(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Row(
-              children: [
-                Icon(
-                  icon,
-                  // Icons.account_circle_outlined,
-                  size: 35,
+          Row(
+            children: [
+              Icon(
+                icon,
+                // Icons.account_circle_outlined,
+                size: 35,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                title,
+                //'Account',
+                style: GoogleFonts.comfortaa(
+                  textStyle: TextStyle(
+                      letterSpacing: .5,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  title,
-                  //'Account',
-                  style: GoogleFonts.comfortaa(
-                    textStyle: TextStyle(
-                        letterSpacing: .5,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           IconButton(
               onPressed: () {

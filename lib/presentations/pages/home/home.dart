@@ -37,7 +37,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
     songs(),
     favorites(),
     libraries(),
-    settings(),
+    Settings(),
   ];
   @override
   void initState() {

@@ -16,7 +16,8 @@ class current extends StatefulWidget {
 
   static int? index = 0;
   static ValueNotifier<int> currentvalue = ValueNotifier<int>(index!);
-
+  static List listnotifier = SongBox.getInstance().values.toList();
+  static ValueNotifier<List> currentList = ValueNotifier<List>(listnotifier);
   @override
   State<current> createState() => _currentState();
 }
@@ -77,6 +78,13 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                               artworkBorder: BorderRadius.circular(0),
                               artworkFit: BoxFit.cover,
                               id: allDbdongs[value].id!,
+                              nullArtworkWidget: ClipRRect(
+                                child: Image.asset(
+                                  'assets/images/empty.jpg',
+                                  height: height / 1.68,
+                                  width: width / 1,
+                                ),
+                              ),
                               type: ArtworkType.AUDIO,
                             ),
                             Padding(
@@ -92,6 +100,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         width: 300,
                                         child: Text(
                                           allDbdongs[value].songname!,
+                                          //player.getCurrentAudioTitle,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
                                             textStyle: TextStyle(
@@ -133,6 +142,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         width: 250,
                                         child: Text(
                                           allDbdongs[value].artist!,
+                                          //player.getCurrentAudioArtist,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
                                             textStyle: TextStyle(
@@ -264,53 +274,93 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    // setState(() {
-                                                    //   isAnimated = !isAnimated;
-                                                    //   if (isAnimated) {
-                                                    //     iconcontroller
-                                                    //         .forward();
-                                                    //     player
-                                                    //         .playlistPlayAtIndex(
-                                                    //             0);
-                                                    //   } else {
-                                                    //     iconcontroller
-                                                    //         .reverse();
-                                                    //     player.pause();
-                                                    //   }
-                                                    // });
-                                                    setState(() {
-                                                      isAnimated = !isAnimated;
-                                                      if (isAnimated) {
-                                                        iconcontroller
-                                                            .forward();
+                                                Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        Colors.deepPurpleAccent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                  ),
+                                                  child: IconButton(
+                                                    onPressed: () async {
+                                                      if (isPlaying) {
+                                                        await player.pause();
+                                                      } else {
+                                                        //await player.play();
                                                         playbutton(player,
                                                             value, allDbdongs);
-                                                      } else {
-                                                        iconcontroller
-                                                            .reverse();
-                                                        player.stop();
                                                       }
-                                                    });
-                                                  },
-                                                  child: AnimatedIcon(
-                                                      icon: AnimatedIcons
-                                                          .play_pause,
-                                                      size: 44,
-                                                      color: Colors
-                                                          .deepPurpleAccent,
-                                                      progress: iconcontroller),
+                                                      setState(
+                                                        () {
+                                                          isPlaying =
+                                                              !isPlaying;
+                                                        },
+                                                      );
+                                                    },
+                                                    icon: (isPlaying)
+                                                        ? const Icon(
+                                                            Icons.pause,
+                                                            color: Colors.white,
+                                                            size: 35,
+                                                          )
+                                                        : const Icon(
+                                                            Icons.play_arrow,
+                                                            color: Colors.white,
+                                                            size: 35,
+                                                          ),
+                                                  ),
                                                 ),
+                                                // const SizedBox(
+                                                //   height: 10,
+                                                // ),
+                                                // GestureDetector(
+                                                //   onTap: () {
+                                                //     // setState(() {
+                                                //     //   isAnimated = !isAnimated;
+                                                //     //   if (isAnimated) {
+                                                //     //     iconcontroller
+                                                //     //         .forward();
+                                                //     //     player
+                                                //     //         .playlistPlayAtIndex(
+                                                //     //             0);
+                                                //     //   } else {
+                                                //     //     iconcontroller
+                                                //     //         .reverse();
+                                                //     //     player.pause();
+                                                //     //   }
+                                                //     // });
+                                                //     setState(() {
+                                                //       isAnimated = !isAnimated;
+                                                //       if (isAnimated) {
+                                                //         iconcontroller
+                                                //             .forward();
+                                                //         playbutton(player,
+                                                //             value, allDbdongs);
+                                                //       } else {
+                                                //         iconcontroller
+                                                //             .reverse();
+                                                //         player.stop();
+                                                //       }
+                                                //     });
+                                                //   },
+                                                //   child: AnimatedIcon(
+                                                //       icon: AnimatedIcons
+                                                //           .play_pause,
+                                                //       size: 44,
+                                                //       color: Colors
+                                                //           .deepPurpleAccent,
+                                                //       progress: iconcontroller),
+                                                // ),
                                               ],
                                             ),
                                             IconButton(
                                                 onPressed: () {
                                                   next(player, value,
                                                       allDbdongs);
+                                                  // player.next();
                                                   // await player.next();
                                                   // setState(() {});
                                                 },
@@ -394,7 +444,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
     setState(() {
       current.currentvalue.value--;
     });
-    await player.stop();
+    //await player.stop();
   }
 
   void next(AssetsAudioPlayer assetsAudioPlayer, int index,
@@ -406,11 +456,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
     setState(() {
       current.currentvalue.value++;
     });
-    await player.stop();
+    //await player.stop();
   }
-
-  // void tensec(AssetsAudioPlayer assetsAudioPlayer, int index,
-  //     List<Songs> dbsongs) async{
-
-  // }
 }

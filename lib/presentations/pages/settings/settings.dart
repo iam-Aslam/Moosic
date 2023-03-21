@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
-class settings extends StatelessWidget {
-  const settings({super.key});
+class Settings extends StatelessWidget {
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {

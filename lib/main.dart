@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           'most': (context) => const MostPlayedPage(),
           'recent': (context) => const Recentlyplayed(),
           'playlist': (context) => const Playlist(),
-          'settings': (context) => const settings(),
+          'settings': (context) => const Settings(),
           'privacy': (context) => const Privacy(),
           'terms': (context) => const TermsandConditions(),
           'about': (context) => const AboutUs(),
