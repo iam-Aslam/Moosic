@@ -77,7 +77,8 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                               artworkWidth: width / 1,
                               artworkBorder: BorderRadius.circular(0),
                               artworkFit: BoxFit.cover,
-                              id: allDbdongs[value].id!,
+                              // id: allDbdongs[value].id!,
+                              id: int.parse(playing.audio.audio.metas.id!),
                               nullArtworkWidget: ClipRRect(
                                 child: Image.asset(
                                   'assets/images/empty.jpg',
@@ -99,8 +100,8 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       Container(
                                         width: 300,
                                         child: Text(
-                                          allDbdongs[value].songname!,
-                                          //player.getCurrentAudioTitle,
+                                          // allDbdongs[value].songname!,
+                                          player.getCurrentAudioTitle,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
                                             textStyle: TextStyle(
@@ -141,8 +142,8 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       Container(
                                         width: 250,
                                         child: Text(
-                                          allDbdongs[value].artist!,
-                                          //player.getCurrentAudioArtist,
+                                          //allDbdongs[value].artist!,
+                                          player.getCurrentAudioArtist,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
                                             textStyle: TextStyle(
@@ -261,8 +262,10 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                 )),
                                             IconButton(
                                               onPressed: () {
-                                                previous(
-                                                    player, value, allDbdongs);
+                                                // previous(
+                                                //     player, value, allDbdongs);
+                                                player.previous();
+                                                setState(() {});
                                               },
                                               icon: const Icon(
                                                 Icons.skip_previous_outlined,
@@ -289,9 +292,9 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                       if (isPlaying) {
                                                         await player.pause();
                                                       } else {
-                                                        //await player.play();
-                                                        playbutton(player,
-                                                            value, allDbdongs);
+                                                        await player.play();
+                                                        //playbutton(player,
+                                                        //  value, allDbdongs);
                                                       }
                                                       setState(
                                                         () {
@@ -357,12 +360,12 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                               ],
                                             ),
                                             IconButton(
-                                                onPressed: () {
-                                                  next(player, value,
-                                                      allDbdongs);
+                                                onPressed: () async {
+                                                  // next(player, value,
+                                                  //   allDbdongs);
                                                   // player.next();
-                                                  // await player.next();
-                                                  // setState(() {});
+                                                  await player.next();
+                                                  setState(() {});
                                                 },
                                                 icon: const Icon(
                                                   Icons.skip_next_outlined,

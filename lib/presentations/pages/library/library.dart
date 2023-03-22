@@ -1,13 +1,21 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:moosic/presentations/widgets/data.dart';
 
-class libraries extends StatelessWidget {
+class libraries extends StatefulWidget {
   const libraries({super.key});
 
+  @override
+  State<libraries> createState() => _librariesState();
+}
+
+class _librariesState extends State<libraries> {
+  final box = FavouriteBox.getInstance();
+  late List<favourites> favourite = box.values.toList();
   @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;

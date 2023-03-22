@@ -218,7 +218,12 @@ InkWell listtile({
   return InkWell(
     onTap: () {
       log('i am listtile');
-      home.currentvalue.value = index;
+      audioPlayer.open(
+        Playlist(audios: convertAudios, startIndex: index),
+        headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+        showNotification: true,
+      );
+      Home.currentvalue.value = index;
       current.currentvalue.value = index;
       //setState(() {});
       recent = RecentlyPlayedModel(
@@ -698,11 +703,12 @@ Padding favorite({
             // List fav =
             //     FavouriteBox.getInstance().values.toList().reversed.toList();
             // current.currentList.value = fav;
-            audioPlayer.open(Playlist(audios: favour, startIndex: 0),
+            audioPlayer.open(Playlist(audios: favour, startIndex: index),
                 showNotification: true,
                 headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
                 loopMode: LoopMode.playlist);
-            home.currentvalue.value = index;
+
+            ///home.currentvalue.value = index;
             //current.currentvalue.value = index;
             Navigator.of(context).pushNamed('current');
           },

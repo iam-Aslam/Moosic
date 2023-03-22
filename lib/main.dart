@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const splash_screen(),
         routes: {
-          'home': (context) => const home(),
+          'home': (context) => const Home(),
           'current': (context) => const current(),
           'liked': (context) => const LikedSongs(),
           'most': (context) => const MostPlayedPage(),

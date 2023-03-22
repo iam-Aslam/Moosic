@@ -101,7 +101,7 @@ final lib_titles = [
 ];
 //lib counts of songs
 final lib_counts = [
-  '45 Songs',
-  '29 Songs',
-  '167 Songs',
+  '10 Songs',
+  '11 Songs',
+  '5 Songs',
 ];
