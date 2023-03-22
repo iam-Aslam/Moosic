@@ -31,6 +31,7 @@ class _CurrentPlaylistState extends State<CurrentPlaylist> {
           i.songurl!,
           metas: Metas(
             title: i.songname,
+            artist: i.artist,
             id: i.id.toString(),
           ),
         ),
@@ -91,93 +92,130 @@ class _CurrentPlaylistState extends State<CurrentPlaylist> {
                                               padding: const EdgeInsets.only(
                                                 left: 16.0,
                                               ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      // current.currentvalue.value = value;
-                                                      Navigator.of(context)
-                                                          .pushNamed('current');
-                                                    },
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        child: Image.asset(
-                                                          'assets/images/playlist.jpg',
-                                                          width: 140,
-                                                          height: 140,
-                                                        )),
-                                                    // child: QueryArtworkWidget(
-                                                    //   id: playsong[index]
-                                                    //       .playlistssongs![0]
-                                                    //       .id!,
-                                                    //   type: ArtworkType.AUDIO,
-                                                    //   keepOldArtwork: true,
-                                                    //   artworkHeight: 140,
-                                                    //   artworkWidth: 140,
-                                                    //   artworkBorder:
-                                                    //       BorderRadius.circular(
-                                                    //           15),
-                                                    // ),
-                                                  ),
-                                                  Row(
+                                              child: player.builderCurrent(
+                                                builder: (context, playing) {
+                                                  return Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      SizedBox(
-                                                        width: 100,
-                                                        child: Text(
-                                                          playsong[index]
-                                                              .songname!,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style:
-                                                              GoogleFonts.lato(
-                                                            textStyle: const TextStyle(
-                                                                letterSpacing:
-                                                                    .5,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          // current.currentvalue.value = value;
+                                                          player.open(
+                                                            Playlist(
+                                                                audios:
+                                                                    converted,
+                                                                startIndex:
+                                                                    index),
+                                                            headPhoneStrategy:
+                                                                HeadPhoneStrategy
+                                                                    .pauseOnUnplugPlayOnPlug,
+                                                            showNotification:
+                                                                true,
+                                                          );
+                                                          Navigator.of(context)
+                                                              .pushNamed(
+                                                                  'current');
+                                                        },
+                                                        // child: ClipRRect(
+                                                        //     borderRadius:
+                                                        //         BorderRadius
+                                                        //             .circular(15),
+                                                        //     child: Image.asset(
+                                                        //      // 'assets/images/playlist.jpg',
+
+                                                        //       width: 140,
+                                                        //       height: 140,
+                                                        //     )),
+                                                        child:
+                                                            QueryArtworkWidget(
+                                                          id: int.parse(playing
+                                                              .audio
+                                                              .audio
+                                                              .metas
+                                                              .id!),
+                                                          type:
+                                                              ArtworkType.AUDIO,
+                                                          nullArtworkWidget:
+                                                              ClipRRect(
+                                                            child: Image.asset(
+                                                              'assets/images/empty.jpg',
+                                                              height: 140,
+                                                              width: 140,
+                                                            ),
                                                           ),
+                                                          keepOldArtwork: true,
+                                                          artworkHeight: 140,
+                                                          artworkWidth: 140,
+                                                          artworkBorder:
+                                                              BorderRadius
+                                                                  .circular(15),
                                                         ),
                                                       ),
-                                                      PopupMenuButton<int>(
-                                                        itemBuilder:
-                                                            (context) => [
-                                                          // PopupMenuItem 1
-                                                          PopupMenuItem(
-                                                            onTap: () {
-                                                              playsong.removeAt(
-                                                                  index);
-                                                              playlistbox.putAt(
-                                                                  widget.index!,
-                                                                  PlaylistSongs(
-                                                                      playlistname:
-                                                                          widget
-                                                                              .playlistname,
-                                                                      playlistssongs:
-                                                                          playsong));
-                                                            },
-                                                            value: 1,
-                                                            child: Row(
-                                                              children: const [
-                                                                Icon(Icons
-                                                                    .delete),
-                                                                SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                Text("Remove")
-                                                              ],
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 100,
+                                                            child: Text(
+                                                              // playsong[index]
+                                                              //     .songname!,
+                                                              player
+                                                                  .getCurrentAudioTitle,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: GoogleFonts
+                                                                  .lato(
+                                                                textStyle: const TextStyle(
+                                                                    letterSpacing:
+                                                                        .5,
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
                                                             ),
+                                                          ),
+                                                          PopupMenuButton<int>(
+                                                            itemBuilder:
+                                                                (context) => [
+                                                              // PopupMenuItem 1
+                                                              PopupMenuItem(
+                                                                onTap: () {
+                                                                  playsong
+                                                                      .removeAt(
+                                                                          index);
+                                                                  playlistbox.putAt(
+                                                                      widget
+                                                                          .index!,
+                                                                      PlaylistSongs(
+                                                                          playlistname: widget
+                                                                              .playlistname,
+                                                                          playlistssongs:
+                                                                              playsong));
+                                                                },
+                                                                value: 1,
+                                                                child: Row(
+                                                                  children: const [
+                                                                    Icon(Icons
+                                                                        .delete),
+                                                                    SizedBox(
+                                                                      width: 10,
+                                                                    ),
+                                                                    Text(
+                                                                        "Remove")
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ],
-                                                  ),
-                                                ],
+                                                  );
+                                                },
                                               ),
                                             )))
                                 : const Center(

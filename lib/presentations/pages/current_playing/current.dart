@@ -188,20 +188,36 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         SizedBox(
                                           width: width / 30,
                                         ),
-                                        Container(
-                                          width: 200,
-                                          child: Text(
-                                            allDbdongs[value + 1].songname!,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.ebGaramond(
-                                              textStyle: TextStyle(
-                                                  letterSpacing: .5,
-                                                  fontSize: width / 25,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
+                                        // value != allDbdongs.length
+                                        //     ? Container(
+                                        //         width: 200,
+                                        //         child: Text(
+                                        //           allDbdongs[value + 1]
+                                        //               .songname!,
+                                        //           overflow:
+                                        //               TextOverflow.ellipsis,
+                                        //           style: GoogleFonts.ebGaramond(
+                                        //             textStyle: TextStyle(
+                                        //                 letterSpacing: .5,
+                                        //                 fontSize: width / 25,
+                                        //                 color: Colors.black,
+                                        //                 fontWeight:
+                                        //                     FontWeight.bold),
+                                        //           ),
+                                        //         ),
+                                        //       )
+                                        //     : Text(
+                                        //         "No Songs",
+                                        //         overflow: TextOverflow.ellipsis,
+                                        //         style: GoogleFonts.ebGaramond(
+                                        //           textStyle: TextStyle(
+                                        //               letterSpacing: .5,
+                                        //               fontSize: width / 25,
+                                        //               color: Colors.black,
+                                        //               fontWeight:
+                                        //                   FontWeight.bold),
+                                        //         ),
+                                        //       )
                                       ],
                                     ),
                                   ),

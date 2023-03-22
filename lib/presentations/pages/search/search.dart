@@ -79,6 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             Audio.file(searchlist[index].songurl!,
                                 metas: Metas(
                                     title: searchlist[index].songname,
+                                    artist: searchlist[index].artist,
                                     id: searchlist[index].id.toString())),
                             showNotification: true,
                           );

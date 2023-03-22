@@ -783,15 +783,28 @@ Padding favorite({
 }
 
 //favourite to build dummy datas
-Padding favoritedummy(
-    {required String song, required int image, required int time}) {
+Padding favoritedummy({
+  required String song,
+  required int image,
+  required int time,
+  required AssetsAudioPlayer audioplayer,
+  required List<Audio> recentsongs,
+  required int index,
+  required BuildContext context,
+}) {
   return Padding(
     padding: const EdgeInsets.only(left: 16.0, top: 10),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
-          onTap: () => log('I am your favorite song'),
+          onTap: () {
+            audioPlayer.open(Playlist(audios: recentsongs, startIndex: index),
+                showNotification: true,
+                headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
+                loopMode: LoopMode.playlist);
+            Navigator.of(context).pushNamed('current');
+          },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: QueryArtworkWidget(

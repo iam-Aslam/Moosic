@@ -80,6 +80,10 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                                     children: List.generate(
                                       mostplayedsongs.length,
                                       (index) => favoritedummy(
+                                          audioplayer: audioPlayer,
+                                          recentsongs: songs,
+                                          index: index,
+                                          context: context,
                                           song: mostplayedsongs[index].songname,
                                           image: mostplayedsongs[index].id,
                                           time:

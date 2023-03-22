@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
+import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
 class Recentlyplayed extends StatefulWidget {
@@ -80,6 +81,10 @@ class _RecentlyplayedState extends State<Recentlyplayed> {
                               children: List.generate(
                                 recentsongs.length,
                                 (index) => favoritedummy(
+                                    index: index,
+                                    context: context,
+                                    recentsongs: recsongs,
+                                    audioplayer: player,
                                     song: recentsongs[index].songname!,
                                     image: recentsongs[index].id!,
                                     time: recentsongs[index].duration!),
