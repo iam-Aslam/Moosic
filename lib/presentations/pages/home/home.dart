@@ -1,4 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, camel_case_types
 import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -12,14 +11,14 @@ import 'package:moosic/presentations/pages/library/library.dart';
 import 'package:moosic/presentations/pages/settings/settings.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class home extends StatefulWidget {
-  const home({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   static int? index = 0;
   static ValueNotifier<int> currentvalue = ValueNotifier<int>(index!);
 
   @override
-  State<home> createState() => _homeState();
+  State<Home> createState() => _HomeState();
 }
 
 final audioPlayer = AssetsAudioPlayer.withId('0');
@@ -27,7 +26,7 @@ final audioPlayer = AssetsAudioPlayer.withId('0');
 final box = SongBox.getInstance();
 List<Audio> convertAudios = [];
 
-class _homeState extends State<home> with SingleTickerProviderStateMixin {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   AssetsAudioPlayer player = AssetsAudioPlayer();
   late AnimationController iconcontroller;
   bool isAnimated = false;
@@ -111,134 +110,154 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 28.0),
         child: ValueListenableBuilder(
-          valueListenable: home.currentvalue,
+          valueListenable: Home.currentvalue,
           builder: (BuildContext context, int value, child) {
             return ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, Box<Songs> allsongs, child) {
-                List<Songs> alldbsongs = allsongs.values.toList();
-                return InkWell(
-                  onTap: () {
-                    log('hi aslam.... i am miniplayer');
-                    current.currentvalue.value = value;
-                    Navigator.of(context).pushNamed('current');
-                  },
-                  child: Container(
-                    height: height / 14,
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 18,
-                        ),
-                        QueryArtworkWidget(
-                          quality: 100,
-                          artworkWidth: width / 6.5,
-                          artworkHeight: height / 13.5,
-                          keepOldArtwork: true,
-                          artworkBorder: BorderRadius.circular(30),
-                          id: alldbsongs[value].id!,
-                          type: ArtworkType.AUDIO,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                // List<Songs> alldbsongs = allsongs.values.toList();
+                return audioPlayer.builderCurrent(
+                  builder: (context, playing) {
+                    return InkWell(
+                      onTap: () {
+                        log('hi aslam.... i am miniplayer');
+                        //current.currentvalue.value = value;
+                        Navigator.of(context).pushNamed('current');
+                      },
+                      child: SizedBox(
+                        height: height / 14,
+                        child: Row(
                           children: [
-                            Container(
-                              width: width / 3,
-                              //color: Colors.amberAccent,
-                              child: Text(
-                                alldbsongs[value].songname!,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 20),
-                              ),
+                            const SizedBox(
+                              width: 18,
+                            ),
+                            QueryArtworkWidget(
+                              quality: 100,
+                              artworkWidth: width / 6.5,
+                              artworkHeight: height / 13.5,
+                              keepOldArtwork: true,
+                              artworkBorder: BorderRadius.circular(30),
+                              // id: alldbsongs[value].id!,
+                              id: int.parse(playing.audio.audio.metas.id!),
+                              type: ArtworkType.AUDIO,
                             ),
                             const SizedBox(
-                              height: 10,
+                              width: 12,
                             ),
-                            Container(
-                              width: width / 3,
-                              //color: Colors.amberAccent,
-                              child: Text(
-                                alldbsongs[value].artist!,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 15, color: Colors.black38),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: width / 3,
+                                  //color: Colors.amberAccent,
+                                  child: Text(
+                                    // alldbsongs[value].songname!,
+                                    audioPlayer.getCurrentAudioTitle,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: width / 3,
+                                  //color: Colors.amberAccent,
+                                  child: Text(
+                                    // alldbsongs[value].artist!,
+                                    audioPlayer.getCurrentAudioArtist,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 15, color: Colors.black38),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            PlayerBuilder.isPlaying(
+                                player: audioPlayer,
+                                builder: (context, isPlaying) {
+                                  return IconButton(
+                                    onPressed: () async {
+                                      log('hi i am previous');
+                                      //previous(player, value, alldbsongs);
+                                      await audioPlayer.previous();
+                                      //setState(() {});
+                                    },
+                                    icon: const Icon(
+                                      Icons.skip_previous_outlined,
+                                      color: Colors.deepPurpleAccent,
+                                      size: 36,
+                                    ),
+                                  );
+                                }),
+                            //play button from slider
+                            PlayerBuilder.isPlaying(
+                                player: audioPlayer,
+                                builder: (context, isPlaying) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(35),
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            if (isPlaying) {
+                                              await player.pause();
+                                            } else {
+                                              await player.play();
+                                              //playbutton(player,
+                                              //  value, allDbdongs);
+                                            }
+                                            setState(
+                                              () {
+                                                isPlaying = !isPlaying;
+                                              },
+                                            );
+                                          },
+                                          icon: (isPlaying)
+                                              ? const Icon(
+                                                  Icons.pause,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                )
+                                              : const Icon(
+                                                  Icons.play_arrow,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+
+                            IconButton(
+                              onPressed: () {
+                                log('hi i am next');
+                                // next(player, value, alldbsongs);
+                                audioPlayer.next();
+                              },
+                              icon: const Icon(
+                                Icons.skip_next_outlined,
+                                color: Colors.deepPurpleAccent,
+                                size: 36,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            log('hi i am previous');
-                            previous(player, value, alldbsongs);
-                          },
-                          icon: const Icon(
-                            Icons.skip_previous_outlined,
-                            color: Colors.deepPurpleAccent,
-                            size: 36,
-                          ),
-                        ),
-                        //play button from slider
-                        PlayerBuilder.isPlaying(
-                            player: audioPlayer,
-                            builder: (context, isPlaying) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      // setState(() {
-                                      //   isAnimated = !isAnimated;
-                                      //   if (isAnimated) {
-                                      //     iconcontroller.forward();
-                                      //     audioPlayer.play();
-                                      //   } else {
-                                      //     iconcontroller.reverse();
-                                      //     audioPlayer.pause();
-                                      //   }
-                                      // });
-                                      setState(() {
-                                        isAnimated = !isAnimated;
-                                        if (isAnimated) {
-                                          iconcontroller.forward();
-                                          playbutton(
-                                              audioPlayer, value, alldbsongs);
-                                        } else {
-                                          iconcontroller.reverse();
-                                          player.stop();
-                                        }
-                                      });
-                                    },
-                                    child: AnimatedIcon(
-                                        icon: AnimatedIcons.play_pause,
-                                        size: 36,
-                                        color: Colors.deepPurpleAccent,
-                                        progress: iconcontroller),
-                                  ),
-                                ],
-                              );
-                            }),
-
-                        IconButton(
-                          onPressed: () {
-                            log('hi i am next');
-                            next(player, value, alldbsongs);
-                          },
-                          icon: const Icon(
-                            Icons.skip_next_outlined,
-                            color: Colors.deepPurpleAccent,
-                            size: 36,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 );
               },
             );
@@ -255,7 +274,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
       showNotification: true,
     );
     setState(() {
-      home.currentvalue.value;
+      Home.currentvalue.value;
     });
     await player.stop();
   }
@@ -267,7 +286,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
       showNotification: true,
     );
     setState(() {
-      home.currentvalue.value--;
+      Home.currentvalue.value--;
     });
     await player.stop();
   }
@@ -279,7 +298,7 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
       showNotification: true,
     );
     setState(() {
-      home.currentvalue.value++;
+      Home.currentvalue.value++;
     });
     await player.stop();
   }
