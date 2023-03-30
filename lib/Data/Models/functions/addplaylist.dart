@@ -5,10 +5,15 @@ import 'package:moosic/Data/Models/models/songsmodel.dart';
 //To add new playlist
 newplaylist(String title) {
   final playlistbox = PlaylistSongsbox.getInstance();
-  List<Songs> playlistsongs = [];
-  playlistbox.add(
-    PlaylistSongs(playlistname: title, playlistssongs: playlistsongs),
-  );
+  List<PlaylistSongs> dbplaylist = playlistbox.values.toList();
+  bool isAlready =
+      dbplaylist.where((element) => element.playlistname == title).isEmpty;
+  if (isAlready) {
+    List<Songs> playlistsongs = [];
+    playlistbox.add(
+      PlaylistSongs(playlistname: title, playlistssongs: playlistsongs),
+    );
+  }
 }
 
 //To add songs to playlists

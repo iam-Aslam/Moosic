@@ -1,10 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'dart:developer';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
-import 'package:moosic/presentations/pages/library/most_played/most_played.dart';
 import '../models/favouriteModel.dart';
 
 late Box<favourites> favouritedb;
@@ -24,9 +21,9 @@ openrecentlyplayeddb() async {
 
 addRecently(RecentlyPlayedModel value) {
   List<RecentlyPlayedModel> list = RecentlyPlayedBox.values.toList();
-  bool isAlready =
+  bool isNot =
       list.where((element) => element.songname == value.songname).isEmpty;
-  if (isAlready == true) {
+  if (isNot == true) {
     RecentlyPlayedBox.add(value);
   } else {
     int index =
@@ -40,9 +37,9 @@ addRecently(RecentlyPlayedModel value) {
 addMostplayed(int index, MostPlayed value) {
   final box = MostplayedBox.getInstance();
   List<MostPlayed> list = box.values.toList();
-  bool isAlready =
+  bool isNot =
       list.where((element) => element.songname == value.songname).isEmpty;
-  if (isAlready == true) {
+  if (isNot == true) {
     box.add(value);
   } else {
     int index =

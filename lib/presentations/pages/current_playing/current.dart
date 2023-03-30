@@ -53,7 +53,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -64,8 +63,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                 return ValueListenableBuilder<Box<Songs>>(
                   valueListenable: box.listenable(),
                   builder: (BuildContext context, Box<Songs> allsongs, child) {
-                    List<Songs> allDbdongs = allsongs.values.toList();
-
                     return player.builderCurrent(
                       builder: (context, playing) {
                         return Column(
