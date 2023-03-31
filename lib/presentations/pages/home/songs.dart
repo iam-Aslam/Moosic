@@ -72,8 +72,8 @@ class _songsState extends State<songs> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16.0, right: 20, top: 10),
+                        padding:
+                            const EdgeInsets.only(left: 8.0, right: 8, top: 10),
                         child: ValueListenableBuilder<Box<Songs>>(
                           valueListenable: box.listenable(),
                           builder: ((context, Box<Songs> allsongbox, child) {
@@ -87,7 +87,7 @@ class _songsState extends State<songs> {
                                       width: 1.0, color: Colors.black26),
                                 ),
                               ),
-                              width: 400,
+                              width: width / 1,
                               height: height / 1.39,
                               child: Expanded(
                                 child: Padding(
@@ -127,7 +127,7 @@ class _songsState extends State<songs> {
                                             separatorBuilder:
                                                 ((context, index) =>
                                                     const SizedBox(
-                                                      height: 10,
+                                                      height: 5,
                                                     )),
                                             itemCount: songlist_db.length),
                                       )

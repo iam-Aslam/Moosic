@@ -86,7 +86,8 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                               type: ArtworkType.AUDIO,
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding:
+                                  const EdgeInsets.only(left: 12.0, top: 12),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -151,7 +152,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 60,
+                                        width: 50,
                                       ),
                                       IconButton(
                                           onPressed: () {

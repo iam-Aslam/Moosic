@@ -35,7 +35,7 @@ class _librariesState extends State<libraries> {
           color: Colors.white,
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 10),
+          padding: const EdgeInsets.only(left: 4.0, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

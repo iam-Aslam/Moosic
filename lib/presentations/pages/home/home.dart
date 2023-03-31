@@ -108,7 +108,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 28.0),
+        padding: const EdgeInsets.only(left: 30.0),
         child: ValueListenableBuilder(
           valueListenable: Home.currentvalue,
           builder: (BuildContext context, int value, child) {
@@ -129,12 +129,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         child: Row(
                           children: [
                             const SizedBox(
-                              width: 18,
+                              width: 16,
                             ),
                             QueryArtworkWidget(
                               quality: 100,
-                              artworkWidth: width / 6.5,
-                              artworkHeight: height / 13.5,
+                              artworkWidth: 40,
+                              artworkHeight: 40,
                               keepOldArtwork: true,
                               artworkBorder: BorderRadius.circular(30),
                               // id: alldbsongs[value].id!,
@@ -142,7 +142,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               type: ArtworkType.AUDIO,
                             ),
                             const SizedBox(
-                              width: 12,
+                              width: 10,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,11 +155,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     // alldbsongs[value].songname!,
                                     audioPlayer.getCurrentAudioTitle,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(fontSize: 20),
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 6,
                                 ),
                                 SizedBox(
                                   width: width / 3,
@@ -169,13 +169,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     audioPlayer.getCurrentAudioArtist,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                        fontSize: 15, color: Colors.black38),
+                                        fontSize: 13, color: Colors.black38),
                                   ),
                                 ),
                               ],
                             ),
                             const SizedBox(
-                              width: 10,
+                              width: 8,
                             ),
                             PlayerBuilder.isPlaying(
                                 player: audioPlayer,

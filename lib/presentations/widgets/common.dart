@@ -13,6 +13,7 @@ import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
+import 'package:moosic/presentations/pages/settings/popup.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../Data/Models/models/mostplayed.dart';
@@ -1026,9 +1027,22 @@ Widget settingselements(
                   // SystemNavigator.pop();
                   return exit(context);
                 } else if (page == 'privacy') {
-                  Navigator.of(context).pushNamed('privacy');
+                  // Navigator.of(context).pushNamed('privacy');
+                  showDialog(
+                    context: context,
+                    builder: (builder) {
+                      return settingmenupopup(mdFilename: 'privacypolicy.md');
+                    },
+                  );
                 } else if (page == 'terms') {
-                  Navigator.of(context).pushNamed('terms');
+                  // Navigator.of(context).pushNamed('terms');
+                  showDialog(
+                    context: context,
+                    builder: (builder) {
+                      return settingmenupopup(
+                          mdFilename: 'termsandconditions.md');
+                    },
+                  );
                 } else if (page == 'about') {
                   Navigator.of(context).pushNamed('about');
                 }
