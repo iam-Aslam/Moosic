@@ -54,7 +54,7 @@ class _RecentlyplayedState extends State<Recentlyplayed> {
             children: [
               SizedBox(
                 width: width / 1,
-                height: height / 16,
+                height: height / 15.5,
                 // child: FittedBox(
                 //   fit: BoxFit.fill,
                 //   child: Image.asset(
