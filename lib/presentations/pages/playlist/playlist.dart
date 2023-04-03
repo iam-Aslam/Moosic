@@ -90,16 +90,22 @@ class _PlaylistState extends State<Playlist> {
                                                 artworkWidth: 130,
                                                 artworkBorder:
                                                     BorderRadius.circular(8),
+                                                nullArtworkWidget: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: Image.asset(
+                                                    'assets/images/empty.jpg',
+                                                    height: 124,
+                                                    width: 124,
+                                                  ),
+                                                ),
                                               )
                                             : Image.asset(
                                                 'assets/images/default.png',
-                                                height: 130,
-                                                width: 130,
+                                                height: 124,
+                                                width: 124,
                                               ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
                                     ),
                                     Row(
                                       children: [

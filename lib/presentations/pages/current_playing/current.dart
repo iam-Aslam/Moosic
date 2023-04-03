@@ -186,36 +186,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         SizedBox(
                                           width: width / 30,
                                         ),
-                                        // value != allDbdongs.length
-                                        //     ? Container(
-                                        //         width: 200,
-                                        //         child: Text(
-                                        //           allDbdongs[value + 1]
-                                        //               .songname!,
-                                        //           overflow:
-                                        //               TextOverflow.ellipsis,
-                                        //           style: GoogleFonts.ebGaramond(
-                                        //             textStyle: TextStyle(
-                                        //                 letterSpacing: .5,
-                                        //                 fontSize: width / 25,
-                                        //                 color: Colors.black,
-                                        //                 fontWeight:
-                                        //                     FontWeight.bold),
-                                        //           ),
-                                        //         ),
-                                        //       )
-                                        //     : Text(
-                                        //         "No Songs",
-                                        //         overflow: TextOverflow.ellipsis,
-                                        //         style: GoogleFonts.ebGaramond(
-                                        //           textStyle: TextStyle(
-                                        //               letterSpacing: .5,
-                                        //               fontSize: width / 25,
-                                        //               color: Colors.black,
-                                        //               fontWeight:
-                                        //                   FontWeight.bold),
-                                        //         ),
-                                        //       )
                                       ],
                                     ),
                                   ),
@@ -330,47 +300,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                           ),
                                                   ),
                                                 ),
-                                                // const SizedBox(
-                                                //   height: 10,
-                                                // ),
-                                                // GestureDetector(
-                                                //   onTap: () {
-                                                //     // setState(() {
-                                                //     //   isAnimated = !isAnimated;
-                                                //     //   if (isAnimated) {
-                                                //     //     iconcontroller
-                                                //     //         .forward();
-                                                //     //     player
-                                                //     //         .playlistPlayAtIndex(
-                                                //     //             0);
-                                                //     //   } else {
-                                                //     //     iconcontroller
-                                                //     //         .reverse();
-                                                //     //     player.pause();
-                                                //     //   }
-                                                //     // });
-                                                //     setState(() {
-                                                //       isAnimated = !isAnimated;
-                                                //       if (isAnimated) {
-                                                //         iconcontroller
-                                                //             .forward();
-                                                //         playbutton(player,
-                                                //             value, allDbdongs);
-                                                //       } else {
-                                                //         iconcontroller
-                                                //             .reverse();
-                                                //         player.stop();
-                                                //       }
-                                                //     });
-                                                //   },
-                                                //   child: AnimatedIcon(
-                                                //       icon: AnimatedIcons
-                                                //           .play_pause,
-                                                //       size: 44,
-                                                //       color: Colors
-                                                //           .deepPurpleAccent,
-                                                //       progress: iconcontroller),
-                                                // ),
                                               ],
                                             ),
                                             IconButton(

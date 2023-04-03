@@ -140,6 +140,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               // id: alldbsongs[value].id!,
                               id: int.parse(playing.audio.audio.metas.id!),
                               type: ArtworkType.AUDIO,
+                              nullArtworkWidget: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'assets/images/empty.jpg',
+                                  height: 40,
+                                  width: 40,
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               width: 10,

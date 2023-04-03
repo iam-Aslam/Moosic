@@ -54,7 +54,7 @@ class _songsState extends State<songs> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          height: height / 1.24,
+          height: height / 1.26,
           //  color: Colors.amberAccent,
           decoration: const BoxDecoration(
             border: Border(
@@ -68,78 +68,59 @@ class _songsState extends State<songs> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 header(context),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-                        child: ValueListenableBuilder<Box<Songs>>(
-                          valueListenable: box.listenable(),
-                          builder: ((context, Box<Songs> allsongbox, child) {
-                            List<Songs> songlist_db =
-                                allsongbox.values.toList();
-                            //log(songlist_db.toString());
-                            return Container(
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                      width: 1.0, color: Colors.black26),
-                                ),
-                              ),
-                              width: width / 1,
-                              height: height / 1.39,
-                              child: Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      titlesingle(title: 'All Songs'),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Expanded(
-                                        child: ListView.separated(
-                                            shrinkWrap: true,
-                                            itemBuilder: ((context, index) {
-                                              RecentlyPlayedModel? recentsong;
-                                              //  Songs currentsongindex =
-                                              //      songlist_db[index];
-                                              // MostPlayed mostplayedsong =
-                                              //     mostplayed[index];
-                                              return listtile(
-                                                mostsong: mostplayed,
-                                                songs: songlist_db[index],
-                                                recent: recentsong,
-                                                isadded: isadded,
-                                                context: context,
-                                                index: index,
-                                                image: songlist_db[index].id!,
-                                                song: songlist_db[index]
-                                                    .songname!,
-                                                artist:
-                                                    songlist_db[index].artist ??
-                                                        "No Artist",
-                                              );
-                                            }),
-                                            separatorBuilder:
-                                                ((context, index) =>
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    )),
-                                            itemCount: songlist_db.length),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
+                  child: ValueListenableBuilder<Box<Songs>>(
+                    valueListenable: box.listenable(),
+                    builder: ((context, Box<Songs> allsongbox, child) {
+                      List<Songs> songlist_db = allsongbox.values.toList();
+                      //log(songlist_db.toString());
+                      return Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(width: 1.0, color: Colors.black26),
+                          ),
                         ),
-                      ),
-                    ],
+                        width: width / 1,
+                        height: height / 1.42,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              titlesingle(title: 'All Songs'),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Expanded(
+                                child: ListView.separated(
+                                    shrinkWrap: true,
+                                    itemBuilder: ((context, index) {
+                                      RecentlyPlayedModel? recentsong;
+                                      return listtile(
+                                        mostsong: mostplayed,
+                                        songs: songlist_db[index],
+                                        recent: recentsong,
+                                        isadded: isadded,
+                                        context: context,
+                                        index: index,
+                                        image: songlist_db[index].id!,
+                                        song: songlist_db[index].songname!,
+                                        artist: songlist_db[index].artist ??
+                                            "No Artist",
+                                      );
+                                    }),
+                                    separatorBuilder: ((context, index) =>
+                                        const SizedBox(
+                                          height: 5,
+                                        )),
+                                    itemCount: songlist_db.length),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
               ],

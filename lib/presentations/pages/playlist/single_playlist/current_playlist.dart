@@ -101,7 +101,6 @@ class _CurrentPlaylistState extends State<CurrentPlaylist> {
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          // current.currentvalue.value = value;
                                                           player.open(
                                                             Playlist(
                                                                 audios:
@@ -118,16 +117,6 @@ class _CurrentPlaylistState extends State<CurrentPlaylist> {
                                                               .pushNamed(
                                                                   'current');
                                                         },
-                                                        // child: ClipRRect(
-                                                        //     borderRadius:
-                                                        //         BorderRadius
-                                                        //             .circular(15),
-                                                        //     child: Image.asset(
-                                                        //      // 'assets/images/playlist.jpg',
-
-                                                        //       width: 140,
-                                                        //       height: 140,
-                                                        //     )),
                                                         child:
                                                             QueryArtworkWidget(
                                                           id: int.parse(playing
@@ -139,15 +128,19 @@ class _CurrentPlaylistState extends State<CurrentPlaylist> {
                                                               ArtworkType.AUDIO,
                                                           nullArtworkWidget:
                                                               ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
                                                             child: Image.asset(
                                                               'assets/images/empty.jpg',
-                                                              height: 140,
-                                                              width: 140,
+                                                              height: 123,
+                                                              width: 123,
                                                             ),
                                                           ),
                                                           keepOldArtwork: true,
-                                                          artworkHeight: 140,
-                                                          artworkWidth: 140,
+                                                          artworkHeight: 123,
+                                                          artworkWidth: 123,
                                                           artworkBorder:
                                                               BorderRadius
                                                                   .circular(15),

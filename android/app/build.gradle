@@ -51,6 +51,8 @@ android {
         applicationId "com.moosic.music"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
+        versionCode 2 // Change to a higher number
+        versionName "2.0.1" // Change to a higher number
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

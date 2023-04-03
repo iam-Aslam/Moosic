@@ -55,36 +55,36 @@ final Songtime = [
   '04:36 Mins',
 ];
 //favorite page images
-final favorimg = [
-  'assets/images/fahernet.jpg',
-  'assets/images/chinese.jpg',
-  'assets/images/emotional.jpg',
-  'assets/images/poshy.jpg',
-  'assets/images/insomnia.jpg',
-  'assets/images/disco.jpg',
-  'assets/images/arjit.jpg',
-];
-//favorite page song names
-final favorsong = [
-  '150 Fahrenheit',
-  'Chinese Vibes',
-  'Emotional Eaters',
-  'Poshy Dinner',
-  'Insomnia',
-  'Disco Fisico',
-  'Sanam Re',
-];
+// final favorimg = [
+//   'assets/images/fahernet.jpg',
+//   'assets/images/chinese.jpg',
+//   'assets/images/emotional.jpg',
+//   'assets/images/poshy.jpg',
+//   'assets/images/insomnia.jpg',
+//   'assets/images/disco.jpg',
+//   'assets/images/arjit.jpg',
+// ];
+// //favorite page song names
+// final favorsong = [
+//   '150 Fahrenheit',
+//   'Chinese Vibes',
+//   'Emotional Eaters',
+//   'Poshy Dinner',
+//   'Insomnia',
+//   'Disco Fisico',
+//   'Sanam Re',
+// ];
 
-//favorite page song times
-final favortime = [
-  '04:48 Min',
-  '03:45 Min',
-  '06:34 Min',
-  '05:08 Min',
-  '10:03 Min',
-  '02:28 Min',
-  '03:58 Min',
-];
+// //favorite page song times
+// final favortime = [
+//   '04:48 Min',
+//   '03:45 Min',
+//   '06:34 Min',
+//   '05:08 Min',
+//   '10:03 Min',
+//   '02:28 Min',
+//   '03:58 Min',
+// ];
 
 //Library Elements are given below
 //lib images
