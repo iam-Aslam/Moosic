@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
-import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
@@ -306,15 +305,6 @@ InkWell listtile({
                   SizedBox(
                     height: 5,
                   ),
-                  // Text(
-                  //   duration,
-                  //   style: GoogleFonts.roboto(
-                  //     textStyle: TextStyle(
-                  //         letterSpacing: .5,
-                  //         fontSize: 12,
-                  //         color: Colors.black38),
-                  //   ),
-                  // ),
                 ],
               )
             ],
@@ -374,38 +364,6 @@ showOptions(BuildContext context, int index) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TextButton.icon(
-                  //     onPressed: () {
-                  //       if (checkFavoriteStatus(index, BuildContext)) {
-                  //         addfavour(index);
-                  //         log('added');
-                  //       } else if (!checkFavoriteStatus(index, BuildContext)) {
-                  //         //     deletefavourite(index);
-                  //       }
-                  //       setState(() {});
-
-                  //       Navigator.pop(context);
-                  //     },
-                  //     icon: (checkFavoriteStatus(index, context))
-                  //         ? const Icon(
-                  //             Icons.favorite_border_outlined,
-                  //             color: Colors.white,
-                  //           )
-                  //         : Icon(
-                  //             Icons.favorite,
-                  //             color: Colors.white,
-                  //           ),
-                  //     label: (checkFavoriteStatus(index, context))
-                  //         ? Text(
-                  //             'Add to Favourites',
-                  //             style:
-                  //                 TextStyle(color: Colors.white, fontSize: 17),
-                  //           )
-                  //         : Text(
-                  //             'Remove from Favourites',
-                  //             style:
-                  //                 TextStyle(color: Colors.white, fontSize: 17),
-                  //           )),
                   TextButton.icon(
                       onPressed: () {
                         showPlaylistOptions(context, index);
@@ -465,6 +423,13 @@ showPlaylistOptions(BuildContext context, int songindex) {
                           itemCount: playlistsong.length,
                           itemBuilder: ((context, index) {
                             return ListTile(
+                              title: Text(
+                                playlistsong[index].playlistname!,
+                                style: GoogleFonts.raleway(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               onTap: () {
                                 PlaylistSongs? playsongs =
                                     playlistsongs.getAt(index);
@@ -491,18 +456,11 @@ showPlaylistOptions(BuildContext context, int songindex) {
                                         playlistname:
                                             playlistsong[index].playlistname,
                                         playlistssongs: playsongdb));
-                                // ignore: avoid_print
+
                                 print(
                                     'song added to${playlistsong[index].playlistname}');
                                 Navigator.pop(context);
                               },
-                              title: Text(
-                                playlistsong[index].playlistname!,
-                                style: GoogleFonts.raleway(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
                             );
                           }),
                         );

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,6 @@ import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-// ignore: must_be_immutable
 class CurrentPlaylist extends StatefulWidget {
   CurrentPlaylist({super.key, required this.index, required this.playlistname});
   int? index;
