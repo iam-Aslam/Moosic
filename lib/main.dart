@@ -19,6 +19,7 @@ import 'package:moosic/presentations/pages/settings/privacy_policy/privacy.dart'
 import 'package:moosic/presentations/pages/settings/settings.dart';
 import 'package:moosic/presentations/pages/settings/terms_and_conditions/terms.dart';
 import 'package:moosic/presentations/pages/splash/splash.dart';
+import 'Bussiness Logic/favourites_bloc/favourites_bloc.dart';
 import 'presentations/pages/current_playing/current.dart';
 
 void main() async {
@@ -46,7 +47,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AllsongsBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => FavouritesBloc(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

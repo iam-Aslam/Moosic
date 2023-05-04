@@ -93,7 +93,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                   Row(
                                     children: [
                                       Container(
-                                        width: 300,
+                                        width: 295,
                                         child: Text(
                                           // allDbdongs[value].songname!,
                                           player.getCurrentAudioTitle,
@@ -107,7 +107,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: width / 7.5,
+                                        width: width / 100050,
                                       ),
                                       IconButton(
                                           onPressed: () {
@@ -152,7 +152,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: width / 4,
+                                        width: width / 8,
                                       ),
                                       IconButton(
                                           onPressed: () {

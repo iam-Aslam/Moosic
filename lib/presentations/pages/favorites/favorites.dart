@@ -2,7 +2,9 @@
 import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
@@ -66,31 +68,37 @@ class _favoritesState extends State<favorites> {
             children: [
               header(context),
               titlesfav(title: 'Favorites'),
-              ValueListenableBuilder<Box<favourites>>(
-                valueListenable: box.listenable(),
-                builder: (context, Box<favourites> dbfavour, child) {
-                  List<favourites> likedsongs =
-                      dbfavour.values.toList().reversed.toList();
-                  log(likedsongs.toString());
-                  //log(likedsongs[0].songname!);
-
-                  return Expanded(
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      children: List.generate(
-                        likedsongs.length,
-                        (index) => favorite(
-                          favour: favsong,
-                          audioPlayer: player,
-                          index: index,
-                          song: likedsongs[index].songname!,
-                          image: likedsongs[index].id!,
-                          time: likedsongs[index].duration!,
-                          context: context,
-                        ),
-                      ),
-                    ),
+              BlocBuilder<FavouritesBloc, FavouritesState>(
+                builder: (context, state) {
+                  if (state is FavouritesInitial) {
+                    context.read<FavouritesBloc>().add(GetFavSongs());
+                  }
+                  if (state is DisplayFavSongs) {
+                    return state.favorites.isNotEmpty
+                        ? Expanded(
+                            child: GridView.count(
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              children: List.generate(
+                                state.favorites.length,
+                                (index) => favorite(
+                                  favour: favsong,
+                                  audioPlayer: player,
+                                  index: index,
+                                  song: state.favorites[index].songname!,
+                                  image: state.favorites[index].id!,
+                                  time: state.favorites[index].duration!,
+                                  context: context,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: Text('Your Favourites is Empty'),
+                          );
+                  }
+                  return Center(
+                    child: Text('Your Favourites is Empty'),
                   );
                 },
               )

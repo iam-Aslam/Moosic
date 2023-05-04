@@ -148,7 +148,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             const SizedBox(
-                              width: 10,
+                              width: 3,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,13 +191,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     icon: const Icon(
                                       Icons.skip_previous_outlined,
                                       color: Colors.deepPurpleAccent,
-                                      size: 40,
+                                      size: 30,
                                     ),
                                   );
                                 }),
-                            SizedBox(
-                              width: width / 40,
-                            ),
+                            // SizedBox(
+                            //   width: width / 40,
+                            // ),
                             //play button from miniplayer
                             PlayerBuilder.isPlaying(
                                 player: audioPlayer,
@@ -206,8 +206,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 40,
-                                        height: 40,
+                                        width: 30,
+                                        height: 30,
                                         decoration: BoxDecoration(
                                           color: Colors.deepPurpleAccent,
                                           borderRadius:
@@ -230,21 +230,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               ? const Icon(
                                                   Icons.pause,
                                                   color: Colors.white,
-                                                  size: 25,
+                                                  size: 15,
                                                 )
                                               : const Icon(
                                                   Icons.play_arrow,
                                                   color: Colors.white,
-                                                  size: 25,
+                                                  size: 15,
                                                 ),
                                         ),
                                       ),
                                     ],
                                   );
                                 }),
-                            SizedBox(
-                              width: width / 250,
-                            ),
+                            // SizedBox(
+                            //   width: width / 250,
+                            // ),
                             IconButton(
                               onPressed: () {
                                 log('hi i am next');
@@ -253,7 +253,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               icon: const Icon(
                                 Icons.skip_next_outlined,
                                 color: Colors.deepPurpleAccent,
-                                size: 40,
+                                size: 30,
                               ),
                             ),
                           ],
