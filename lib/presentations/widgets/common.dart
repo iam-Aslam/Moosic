@@ -235,7 +235,7 @@ InkWell listtile({
         songurl: songs.songurl,
       );
       addRecently(recent!);
-      addMostplayed(index, mostsong[index]);
+      // addMostplayed(index, mostsong[index]);
 
       Navigator.of(context).pushNamed('current');
     },

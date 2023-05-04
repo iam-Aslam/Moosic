@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Bussiness%20Logic/allsongs_bloc/allsongs_bloc.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
@@ -40,25 +42,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Moosic',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const splash_screen(),
-        routes: {
-          'home': (context) => const Home(),
-          'current': (context) => const current(),
-          'liked': (context) => const LikedSongs(),
-          'most': (context) => const MostPlayedPage(),
-          'recent': (context) => const Recentlyplayed(),
-          'playlist': (context) => const Playlist(),
-          'settings': (context) => const Settings(),
-          'privacy': (context) => const Privacy(),
-          'terms': (context) => const TermsandConditions(),
-          'about': (context) => const AboutUs(),
-          'search': (context) => const SearchScreen(),
-        });
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AllsongsBloc(),
+        )
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Moosic',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const splash_screen(),
+          routes: {
+            'home': (context) => const Home(),
+            'current': (context) => const current(),
+            'liked': (context) => const LikedSongs(),
+            'most': (context) => const MostPlayedPage(),
+            'recent': (context) => const Recentlyplayed(),
+            'playlist': (context) => const Playlist(),
+            'settings': (context) => const Settings(),
+            'privacy': (context) => const Privacy(),
+            'terms': (context) => const TermsandConditions(),
+            'about': (context) => const AboutUs(),
+            'search': (context) => const SearchScreen(),
+          }),
+    );
   }
 }

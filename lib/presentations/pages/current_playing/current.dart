@@ -1,4 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, camel_case_types
 import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -92,8 +91,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: 300,
@@ -108,6 +105,9 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
+                                      ),
+                                      SizedBox(
+                                        width: width / 7.5,
                                       ),
                                       IconButton(
                                           onPressed: () {
@@ -151,8 +151,8 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 50,
+                                      SizedBox(
+                                        width: width / 4,
                                       ),
                                       IconButton(
                                           onPressed: () {
@@ -200,22 +200,28 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                           position = realtimePlayingInfos
                                               .currentPosition;
 
-                                          return ProgressBar(
-                                            baseBarColor: Colors.black38,
-                                            progressBarColor:
-                                                const Color.fromARGB(
-                                                    206, 223, 64, 251),
-                                            thumbColor: Colors.deepPurpleAccent,
-                                            thumbRadius: 5,
-                                            timeLabelPadding: 5,
-                                            progress: position,
-                                            timeLabelTextStyle: const TextStyle(
-                                              color: Colors.deepPurpleAccent,
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10.0),
+                                            child: ProgressBar(
+                                              baseBarColor: Colors.black38,
+                                              progressBarColor:
+                                                  const Color.fromARGB(
+                                                      206, 223, 64, 251),
+                                              thumbColor:
+                                                  Colors.deepPurpleAccent,
+                                              thumbRadius: 5,
+                                              timeLabelPadding: 5,
+                                              progress: position,
+                                              timeLabelTextStyle:
+                                                  const TextStyle(
+                                                color: Colors.deepPurpleAccent,
+                                              ),
+                                              total: duration,
+                                              onSeek: (duration) async {
+                                                await player.seek(duration);
+                                              },
                                             ),
-                                            total: duration,
-                                            onSeek: (duration) async {
-                                              await player.seek(duration);
-                                            },
                                           );
                                         },
                                       ),

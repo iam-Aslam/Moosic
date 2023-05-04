@@ -1,6 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Bussiness%20Logic/allsongs_bloc/allsongs_bloc.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
@@ -70,58 +72,72 @@ class _songsState extends State<songs> {
                 header(context),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-                  child: ValueListenableBuilder<Box<Songs>>(
-                    valueListenable: box.listenable(),
-                    builder: ((context, Box<Songs> allsongbox, child) {
-                      List<Songs> songlist_db = allsongbox.values.toList();
-                      //log(songlist_db.toString());
-                      return Container(
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(width: 1.0, color: Colors.black26),
-                          ),
-                        ),
-                        width: width / 1,
-                        height: height / 1.42,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              titlesingle(title: 'All Songs'),
-                              const SizedBox(
-                                height: 10,
+                  child: BlocBuilder<AllsongsBloc, AllsongsState>(
+                      //  valueListenable: box.listenable(),
+                      builder: (context, state) {
+                    //  List<Songs> songlist_db = allsongbox.values.toList();
+                    //log(songlist_db.toString());
+                    if (state is AllsongsInitial) {
+                      context.read<AllsongsBloc>().add(GetAllSongs());
+                    }
+                    if (state is DisplayAllSongs) {
+                      return state.Allsongs.isNotEmpty
+                          ? Container(
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                      width: 1.0, color: Colors.black26),
+                                ),
                               ),
-                              Expanded(
-                                child: ListView.separated(
-                                    shrinkWrap: true,
-                                    itemBuilder: ((context, index) {
-                                      RecentlyPlayedModel? recentsong;
-                                      return listtile(
-                                        mostsong: mostplayed,
-                                        songs: songlist_db[index],
-                                        recent: recentsong,
-                                        isadded: isadded,
-                                        context: context,
-                                        index: index,
-                                        image: songlist_db[index].id!,
-                                        song: songlist_db[index].songname!,
-                                        artist: songlist_db[index].artist ??
-                                            "No Artist",
-                                      );
-                                    }),
-                                    separatorBuilder: ((context, index) =>
-                                        const SizedBox(
-                                          height: 5,
-                                        )),
-                                    itemCount: songlist_db.length),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
+                              width: width / 1,
+                              height: height / 1.42,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    titlesingle(title: 'All Songs'),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Expanded(
+                                      child: ListView.separated(
+                                          shrinkWrap: true,
+                                          itemBuilder: ((context, index) {
+                                            RecentlyPlayedModel? recentsong;
+                                            return listtile(
+                                              mostsong: mostplayed,
+                                              songs: state.Allsongs[index],
+                                              recent: recentsong,
+                                              isadded: isadded,
+                                              context: context,
+                                              index: index,
+                                              image: state.Allsongs[index].id!,
+                                              song: state
+                                                  .Allsongs[index].songname!,
+                                              artist: state
+                                                      .Allsongs[index].artist ??
+                                                  "No Artist",
+                                            );
+                                          }),
+                                          separatorBuilder: ((context, index) =>
+                                              const SizedBox(
+                                                height: 5,
+                                              )),
+                                          itemCount: state.Allsongs.length),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
                 ),
               ],
             ),

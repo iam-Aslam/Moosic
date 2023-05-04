@@ -48,8 +48,10 @@ dependencies:
   audio_video_progress_bar: ^0.11.0
   flutter_launcher_icons: ^0.12.0
   flutter_markdown: ^0.6.14
+  flutter_bloc: ^8.1.2
 
 dev_dependencies:
+  equatable: ^2.0.5
   flutter_test:
     sdk: flutter
 flutter_icons:

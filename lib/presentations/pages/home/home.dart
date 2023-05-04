@@ -115,37 +115,35 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             return ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, Box<Songs> allsongs, child) {
-                // List<Songs> alldbsongs = allsongs.values.toList();
                 return audioPlayer.builderCurrent(
                   builder: (context, playing) {
                     return InkWell(
                       onTap: () {
                         log('hi aslam.... i am miniplayer');
-                        //current.currentvalue.value = value;
+
                         Navigator.of(context).pushNamed('current');
                       },
                       child: SizedBox(
                         height: height / 14,
                         child: Row(
                           children: [
-                            const SizedBox(
-                              width: 16,
+                            SizedBox(
+                              width: width / 30,
                             ),
                             QueryArtworkWidget(
                               quality: 100,
-                              artworkWidth: 40,
-                              artworkHeight: 40,
+                              artworkWidth: 60,
+                              artworkHeight: 60,
                               keepOldArtwork: true,
                               artworkBorder: BorderRadius.circular(30),
-                              // id: alldbsongs[value].id!,
                               id: int.parse(playing.audio.audio.metas.id!),
                               type: ArtworkType.AUDIO,
                               nullArtworkWidget: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(30),
                                 child: Image.asset(
                                   'assets/images/empty.jpg',
-                                  height: 40,
-                                  width: 40,
+                                  height: 60,
+                                  width: 60,
                                 ),
                               ),
                             ),
@@ -158,22 +156,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               children: [
                                 SizedBox(
                                   width: width / 3,
-                                  //color: Colors.amberAccent,
                                   child: Text(
-                                    // alldbsongs[value].songname!,
                                     audioPlayer.getCurrentAudioTitle,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(fontSize: 18),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 6,
+                                SizedBox(
+                                  height: height / 140,
                                 ),
                                 SizedBox(
                                   width: width / 3,
-                                  //color: Colors.amberAccent,
                                   child: Text(
-                                    // alldbsongs[value].artist!,
                                     audioPlayer.getCurrentAudioArtist,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
@@ -182,8 +176,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              width: 8,
+                            SizedBox(
+                              width: width / 40,
                             ),
                             PlayerBuilder.isPlaying(
                                 player: audioPlayer,
@@ -191,18 +185,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   return IconButton(
                                     onPressed: () async {
                                       log('hi i am previous');
-                                      //previous(player, value, alldbsongs);
+
                                       await audioPlayer.previous();
-                                      //setState(() {});
                                     },
                                     icon: const Icon(
                                       Icons.skip_previous_outlined,
                                       color: Colors.deepPurpleAccent,
-                                      size: 36,
+                                      size: 40,
                                     ),
                                   );
                                 }),
-                            //play button from slider
+                            SizedBox(
+                              width: width / 40,
+                            ),
+                            //play button from miniplayer
                             PlayerBuilder.isPlaying(
                                 player: audioPlayer,
                                 builder: (context, isPlaying) {
@@ -210,8 +206,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 30,
-                                        height: 30,
+                                        width: 40,
+                                        height: 40,
                                         decoration: BoxDecoration(
                                           color: Colors.deepPurpleAccent,
                                           borderRadius:
@@ -223,8 +219,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               await player.pause();
                                             } else {
                                               await player.play();
-                                              //playbutton(player,
-                                              //  value, allDbdongs);
                                             }
                                             setState(
                                               () {
@@ -236,29 +230,30 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               ? const Icon(
                                                   Icons.pause,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 25,
                                                 )
                                               : const Icon(
                                                   Icons.play_arrow,
                                                   color: Colors.white,
-                                                  size: 15,
+                                                  size: 25,
                                                 ),
                                         ),
                                       ),
                                     ],
                                   );
                                 }),
-
+                            SizedBox(
+                              width: width / 250,
+                            ),
                             IconButton(
                               onPressed: () {
                                 log('hi i am next');
-                                // next(player, value, alldbsongs);
                                 audioPlayer.next();
                               },
                               icon: const Icon(
                                 Icons.skip_next_outlined,
                                 color: Colors.deepPurpleAccent,
-                                size: 36,
+                                size: 40,
                               ),
                             ),
                           ],
@@ -273,41 +268,5 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
       ),
     ));
-  }
-
-  void playbutton(AssetsAudioPlayer assetsAudioPlayer, int index,
-      List<Songs> dbsongs) async {
-    player.open(
-      Audio.file(dbsongs[index].songurl!),
-      showNotification: true,
-    );
-    setState(() {
-      Home.currentvalue.value;
-    });
-    await player.stop();
-  }
-
-  void previous(AssetsAudioPlayer assetsAudioPlayer, int index,
-      List<Songs> dbsongs) async {
-    player.open(
-      Audio.file(dbsongs[index - 1].songurl!),
-      showNotification: true,
-    );
-    setState(() {
-      Home.currentvalue.value--;
-    });
-    await player.stop();
-  }
-
-  void next(AssetsAudioPlayer assetsAudioPlayer, int index,
-      List<Songs> dbsongs) async {
-    player.open(
-      Audio.file(dbsongs[index + 1].songurl!),
-      showNotification: true,
-    );
-    setState(() {
-      Home.currentvalue.value++;
-    });
-    await player.stop();
   }
 }
