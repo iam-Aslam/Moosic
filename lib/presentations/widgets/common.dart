@@ -3,8 +3,11 @@ import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Bussiness%20Logic/mostplayed_bloc/mostplayed_bloc.dart';
+import 'package:moosic/Bussiness%20Logic/recentyplayed_bloc/recentlyplayed_bloc.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/playlistmodel.dart';
@@ -223,8 +226,8 @@ InkWell listtile({
         headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
         showNotification: true,
       );
-      Home.currentvalue.value = index;
-      current.currentvalue.value = index;
+      // Home.currentvalue.value = index;
+      // current.currentvalue.value = index;
       //setState(() {});
       recent = RecentlyPlayedModel(
         index: index,
@@ -234,7 +237,12 @@ InkWell listtile({
         songname: songs.songname,
         songurl: songs.songurl,
       );
-      addRecently(recent!);
+      BlocProvider.of<RecentlyplayedBloc>(context)
+          .add(AddToRecentlyPlayed(recentlyPlayedModel: recent!));
+      context
+          .read<MostplayedBloc>()
+          .add(UpdateCount(mostplay: mostsong, index: index));
+      // addRecently(recent!);
       // addMostplayed(index, mostsong[index]);
 
       Navigator.of(context).pushNamed('current');

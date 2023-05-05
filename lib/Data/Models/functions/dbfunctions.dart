@@ -1,4 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:developer';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
@@ -50,4 +52,14 @@ addMostplayed(int index, MostPlayed value) {
   }
   int count = value.count;
   value.count = count + 1;
+}
+
+addMostplayednew(MostPlayed value) {
+  final box = MostplayedBox.getInstance();
+  List<MostPlayed> list = box.values.toList();
+  bool isNot = list.where((element) => element.id == value.id).isEmpty;
+
+  int count = value.count;
+  value.count = count + 1;
+  log('${value.count}');
 }
