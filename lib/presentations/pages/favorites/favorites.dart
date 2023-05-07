@@ -1,9 +1,7 @@
 // ignore_for_file: camel_case_types
-import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
@@ -45,6 +43,9 @@ class _favoritesState extends State<favorites> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<FavouritesBloc>(context).add(GetFavSongs());
+    });
     orientation = MediaQuery.of(context).orientation;
     //size of the window
     size = MediaQuery.of(context).size;

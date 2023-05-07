@@ -47,8 +47,10 @@ class _songsState extends State<songs> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<AllsongsBloc>(context).add(GetAllSongs());
+    });
     orientation = MediaQuery.of(context).orientation;
-    //size of the window
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;

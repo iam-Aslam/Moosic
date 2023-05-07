@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/allsongs_bloc/allsongs_bloc.dart';
+import 'package:moosic/Bussiness%20Logic/recentyplayed_bloc/recentlyplayed_bloc.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavouritesBloc(),
+        ),
+        BlocProvider(
+          create: (context) => RecentlyplayedBloc(),
         ),
       ],
       child: MaterialApp(

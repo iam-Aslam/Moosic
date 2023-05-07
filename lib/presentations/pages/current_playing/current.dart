@@ -1,10 +1,12 @@
 import 'dart:developer';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
+import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
 import 'package:moosic/presentations/widgets/common.dart';
@@ -25,7 +27,6 @@ class current extends StatefulWidget {
 var orientation, size, height, width;
 
 class _currentState extends State<current> with SingleTickerProviderStateMixin {
-  //AssetsAudioPlayer player = AssetsAudioPlayer();
   final player = AssetsAudioPlayer.withId('0');
   late AnimationController iconcontroller;
   bool isAnimated = false;
@@ -62,6 +63,7 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                 return ValueListenableBuilder<Box<Songs>>(
                   valueListenable: box.listenable(),
                   builder: (BuildContext context, Box<Songs> allsongs, child) {
+                    List<Songs> allDbsongs = box.values.toList();
                     return player.builderCurrent(
                       builder: (context, playing) {
                         return Column(
@@ -109,18 +111,43 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       SizedBox(
                                         width: width / 100050,
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            if (checkFavour(
-                                                value, BuildContext)) {
-                                              addfavour(value);
-                                            } else if (!checkFavour(
-                                                value, BuildContext)) {
-                                              removefavour(value);
-                                            }
-                                            setState(() {});
-                                          },
-                                          icon: (checkFavour(
+                                      IconButton(onPressed: () {
+                                        // if (checkFavour(
+                                        //     value, BuildContext)) {
+                                        //   addfavour(value);
+                                        // } else if (!checkFavour(
+                                        //     value, BuildContext)) {
+                                        //   removefavour(value);
+                                        // }
+                                        // setState(() {});
+                                        BlocProvider.of<FavouritesBloc>(context)
+                                            .add(AddorRemoveFavourites(
+                                                favourites(
+                                                  songname: allDbsongs[value]
+                                                      .songname,
+                                                  id: allDbsongs[value].id,
+                                                  artist:
+                                                      allDbsongs[value].artist,
+                                                  duration: allDbsongs[value]
+                                                      .duration,
+                                                  songurl:
+                                                      allDbsongs[value].songurl,
+                                                ),
+                                                value));
+                                      },
+                                          // icon: (checkFavour(value, BuildContext))
+                                          //     ? const Icon(
+                                          //         Icons.favorite_border_outlined,
+                                          //         color: Colors.deepPurpleAccent,
+                                          //       )
+                                          //     : const Icon(
+                                          //         Icons.favorite,
+                                          //         color: Colors.deepPurpleAccent,
+                                          //       ),
+                                          icon: BlocBuilder<FavouritesBloc,
+                                              FavouritesState>(
+                                        builder: (context, state) {
+                                          return (checkFavour(
                                                   value, BuildContext))
                                               ? const Icon(
                                                   Icons
@@ -132,7 +159,9 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                   Icons.favorite,
                                                   color:
                                                       Colors.deepPurpleAccent,
-                                                )),
+                                                );
+                                        },
+                                      )),
                                     ],
                                   ),
                                   Row(
