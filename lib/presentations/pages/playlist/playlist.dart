@@ -121,7 +121,10 @@ class Playlist extends StatelessWidget {
                                         // PopupMenuItem 1
                                         PopupMenuItem(
                                           onTap: () {
-                                            deleteplaylist(index);
+                                            // deleteplaylist(index);
+                                            context
+                                                .read<PlaylistBloc>()
+                                                .add(DeletePlaylist(index));
                                           },
                                           value: 1,
                                           // row with 2 children

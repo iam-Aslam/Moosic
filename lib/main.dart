@@ -14,7 +14,6 @@ import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:moosic/presentations/pages/library/most_played/most_played.dart';
 import 'package:moosic/presentations/pages/library/recent_played/recent_played.dart';
-import 'package:moosic/presentations/pages/liked_songs/liked.dart';
 import 'package:moosic/presentations/pages/playlist/playlist.dart';
 import 'package:moosic/presentations/pages/search/search.dart';
 import 'package:moosic/presentations/pages/settings/about_us/about.dart';
@@ -74,7 +73,6 @@ class MyApp extends StatelessWidget {
           routes: {
             'home': (context) => const Home(),
             'current': (context) => const current(),
-            'liked': (context) => const LikedSongs(),
             'most': (context) => const MostPlayedPage(),
             'recent': (context) => Recentlyplayed(),
             'playlist': (context) => Playlist(),

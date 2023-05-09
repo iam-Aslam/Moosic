@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
-
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import 'package:moosic/presentations/pages/favorites/addtofavourite.dart';
 import 'package:moosic/presentations/widgets/common.dart';
@@ -115,14 +114,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       ),
                                       IconButton(
                                         onPressed: () {
-                                          // if (checkFavour(
-                                          //     value, BuildContext)) {
-                                          //   addfavour(value);
-                                          // } else if (!checkFavour(
-                                          //     value, BuildContext)) {
-                                          //   removefavour(value);
-                                          // }
-                                          // setState(() {});
                                           BlocProvider.of<FavouritesBloc>(
                                                   context)
                                               .add(AddorRemoveFavourites(
@@ -139,15 +130,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                   ),
                                                   value));
                                         },
-                                        // icon: (checkFavour(value, BuildContext))
-                                        //     ? const Icon(
-                                        //         Icons.favorite_border_outlined,
-                                        //         color: Colors.deepPurpleAccent,
-                                        //       )
-                                        //     : const Icon(
-                                        //         Icons.favorite,
-                                        //         color: Colors.deepPurpleAccent,
-                                        //       ),
                                         icon: BlocBuilder<FavouritesBloc,
                                             FavouritesState>(
                                           builder: (context, state) {

@@ -12,7 +12,7 @@ class settingmenupopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Color.fromARGB(255, 35, 35, 35),
+      backgroundColor: Colors.deepPurpleAccent,
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: Column(
@@ -27,7 +27,7 @@ class settingmenupopup extends StatelessWidget {
                       return Markdown(
                           styleSheet: MarkdownStyleSheet.fromTheme(ThemeData(
                               textTheme: TextTheme(
-                                  bodyText2: TextStyle(
+                                  bodyMedium: TextStyle(
                                       fontFamily: "Inter",
                                       fontSize: 15.0,
                                       color: Colors.white)))),
