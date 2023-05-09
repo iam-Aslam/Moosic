@@ -30,7 +30,14 @@ class RecentlyplayedBloc
             .isEmpty;
         if (isAlready) {
           box.add(event.recentlyPlayedModel);
+          log('Recenly played model added through bloc');
           add(GetRecentlyPlayed());
+        } else {
+          int index = recentList.indexWhere(
+              (element) => element.id == event.recentlyPlayedModel.id);
+          box.deleteAt(index);
+          box.add(event.recentlyPlayedModel);
+          log('Recenly played model added through bloc');
         }
       } catch (e) {
         log(e.toString());

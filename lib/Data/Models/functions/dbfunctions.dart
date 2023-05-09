@@ -7,9 +7,9 @@ import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/Data/Models/models/songsmodel.dart';
 import '../models/favouriteModel.dart';
 
-late Box<favourites> favouritedb;
+late Box<favouritesmodel> favouritedb;
 openfavourite() async {
-  favouritedb = await Hive.openBox<favourites>(favourbox);
+  favouritedb = await Hive.openBox<favouritesmodel>(favourbox);
 }
 
 late Box<MostPlayed> mostplayedsongs;

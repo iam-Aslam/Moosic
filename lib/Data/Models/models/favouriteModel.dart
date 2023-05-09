@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'favouriteModel.g.dart';
 
 @HiveType(typeId: 1)
-class favourites {
+class favouritesmodel {
   @HiveField(0)
   int? id;
   @HiveField(1)
@@ -16,7 +16,7 @@ class favourites {
   int? duration;
   @HiveField(4)
   String? songurl;
-  favourites({
+  favouritesmodel({
     required this.id,
     required this.songname,
     required this.artist,
@@ -28,8 +28,8 @@ class favourites {
 String favourbox = 'Favourites';
 
 class FavouriteBox {
-  static Box<favourites>? _box;
-  static Box<favourites> getInstance() {
+  static Box<favouritesmodel>? _box;
+  static Box<favouritesmodel> getInstance() {
     return _box ??= Hive.box(favourbox);
   }
 }

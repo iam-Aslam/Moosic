@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/allsongs_bloc/allsongs_bloc.dart';
+import 'package:moosic/Bussiness%20Logic/mostplayed_bloc/mostplayed_bloc.dart';
+import 'package:moosic/Bussiness%20Logic/playlist_bloc/playlist_bloc.dart';
 import 'package:moosic/Bussiness%20Logic/recentyplayed_bloc/recentlyplayed_bloc.dart';
 import 'package:moosic/Data/Models/functions/dbfunctions.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
@@ -55,6 +57,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RecentlyplayedBloc(),
         ),
+        BlocProvider(
+          create: (context) => MostplayedBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PlaylistBloc(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -68,8 +76,8 @@ class MyApp extends StatelessWidget {
             'current': (context) => const current(),
             'liked': (context) => const LikedSongs(),
             'most': (context) => const MostPlayedPage(),
-            'recent': (context) => const Recentlyplayed(),
-            'playlist': (context) => const Playlist(),
+            'recent': (context) => Recentlyplayed(),
+            'playlist': (context) => Playlist(),
             'settings': (context) => const Settings(),
             'privacy': (context) => const Privacy(),
             'terms': (context) => const TermsandConditions(),

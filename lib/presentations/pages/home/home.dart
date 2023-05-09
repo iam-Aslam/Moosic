@@ -32,9 +32,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isAnimated = false;
   bool isplaying = false;
   int currentselected = 0;
-  final pages = const [
+  final pages = [
     songs(),
-    favorites(),
+    FavoritesWidget(),
     libraries(),
     Settings(),
   ];

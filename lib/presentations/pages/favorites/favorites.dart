@@ -1,30 +1,34 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, must_be_immutable
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
-class favorites extends StatefulWidget {
-  const favorites({super.key});
+class FavoritesWidget extends StatelessWidget {
+  FavoritesWidget({super.key});
 
-  @override
-  State<favorites> createState() => _favoritesState();
-}
+  final List<favouritesmodel> likedsongs = [];
 
-final player = AssetsAudioPlayer.withId('0');
+  final favourbox = FavouriteBox.getInstance();
+  final player = AssetsAudioPlayer.withId('0');
+  late List<favouritesmodel> liked = favourbox.values.toList();
 
-class _favoritesState extends State<favorites> {
-  final List<favourites> likedsongs = [];
-  final box = FavouriteBox.getInstance();
-  late List<favourites> liked = box.values.toList();
   // bool isadded = true;
   List<Audio> favsong = [];
+
   @override
-  void initState() {
-    final List<favourites> likedsong = box.values.toList().reversed.toList();
+  Widget build(BuildContext context) {
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   BlocProvider.of<FavouritesBloc>(context).add(GetFavSongs());
+    // });
+
+    //items where in init state
+    final List<favouritesmodel> likedsong =
+        favourbox.values.toList().reversed.toList();
     for (var i in likedsong) {
       favsong.add(
         Audio.file(
@@ -37,15 +41,6 @@ class _favoritesState extends State<favorites> {
         ),
       );
     }
-    setState(() {});
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<FavouritesBloc>(context).add(GetFavSongs());
-    });
     orientation = MediaQuery.of(context).orientation;
     //size of the window
     size = MediaQuery.of(context).size;
@@ -94,12 +89,16 @@ class _favoritesState extends State<favorites> {
                               ),
                             ),
                           )
-                        : Center(
-                            child: Text('Your Favourites is Empty'),
+                        : Padding(
+                            padding: EdgeInsets.only(top: 100),
+                            child: const Text(
+                              "You haven't liked any songs!",
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
                           );
                   }
-                  return Center(
-                    child: Text('Your Favourites is Empty'),
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 },
               )

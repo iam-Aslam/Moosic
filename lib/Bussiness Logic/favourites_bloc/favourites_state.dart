@@ -10,7 +10,7 @@ class FavouritesInitial extends FavouritesState {
 }
 
 class DisplayFavSongs extends FavouritesState {
-  final List<favourites> favorites;
+  final List<favouritesmodel> favorites;
 
   DisplayFavSongs(this.favorites);
   @override

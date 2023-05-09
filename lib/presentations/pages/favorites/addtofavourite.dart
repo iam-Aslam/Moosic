@@ -7,7 +7,7 @@ import '../../../Data/Models/functions/dbfunctions.dart';
 addfavour(int index) async {
   final box = SongBox.getInstance();
   List<Songs> allsongs = box.values.toList();
-  List<favourites> likedsongs = [];
+  List<favouritesmodel> likedsongs = [];
   likedsongs = favouritedb.values.toList();
 
   bool isalready = likedsongs
@@ -15,7 +15,7 @@ addfavour(int index) async {
       .isEmpty;
   if (isalready) {
     favouritedb.add(
-      favourites(
+      favouritesmodel(
           id: allsongs[index].id,
           songname: allsongs[index].songname,
           artist: allsongs[index].artist,
@@ -37,7 +37,7 @@ addfavour(int index) async {
 removefavour(int index) async {
   final box = SongBox.getInstance();
   final box2 = FavouriteBox.getInstance();
-  List<favourites> favourite = box2.values.toList();
+  List<favouritesmodel> favourite = box2.values.toList();
   List<Songs> songs = box.values.toList();
   int currentidx =
       favourite.indexWhere((element) => element.id == songs[index].id);
@@ -47,8 +47,8 @@ removefavour(int index) async {
 bool checkFavour(int index, BuildContext) {
   final box = SongBox.getInstance();
   List<Songs> allsongs = box.values.toList();
-  List<favourites> favouritesongs = [];
-  favourites value = favourites(
+  List<favouritesmodel> favouritesongs = [];
+  favouritesmodel value = favouritesmodel(
       id: allsongs[index].id,
       songname: allsongs[index].songname,
       artist: allsongs[index].artist,

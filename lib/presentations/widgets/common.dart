@@ -18,6 +18,7 @@ import 'package:moosic/presentations/pages/home/home.dart';
 import 'package:moosic/presentations/pages/settings/popup.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+import '../../Bussiness Logic/playlist_bloc/playlist_bloc.dart';
 import '../../Data/Models/models/mostplayed.dart';
 
 class common extends StatelessWidget {
@@ -227,7 +228,7 @@ InkWell listtile({
         showNotification: true,
       );
       // Home.currentvalue.value = index;
-      // current.currentvalue.value = index;
+      current.currentvalue.value = index;
       //setState(() {});
       recent = RecentlyPlayedModel(
         index: index,
@@ -243,7 +244,7 @@ InkWell listtile({
           .read<MostplayedBloc>()
           .add(UpdateCount(mostplay: mostsong, index: index));
       // addRecently(recent!);
-      // addMostplayed(index, mostsong[index]);
+      addMostplayed(index, mostsong[index]);
 
       Navigator.of(context).pushNamed('current');
     },
@@ -590,7 +591,10 @@ showPlaylistOptionsadd(BuildContext context) {
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          newplaylist(myController.text);
+                          //newplaylist(myController.text);
+                          context
+                              .read<PlaylistBloc>()
+                              .add(CreatePlaylist(myController.text));
                           Navigator.pop(context);
                         },
                         label: Text(

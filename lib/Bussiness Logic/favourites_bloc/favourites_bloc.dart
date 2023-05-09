@@ -16,7 +16,7 @@ class FavouritesBloc extends Bloc<FavouritesEvent, FavouritesState> {
     on<GetFavSongs>((event, emit) {
       try {
         final favouritebox = FavouriteBox.getInstance();
-        List<favourites> favouritesongs = favouritebox.values.toList();
+        List<favouritesmodel> favouritesongs = favouritebox.values.toList();
         emit(DisplayFavSongs(favouritesongs));
       } catch (e) {
         log(e.toString());

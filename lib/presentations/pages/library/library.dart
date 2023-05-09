@@ -15,7 +15,7 @@ class libraries extends StatefulWidget {
 
 class _librariesState extends State<libraries> {
   final box = FavouriteBox.getInstance();
-  late List<favourites> favourite = box.values.toList();
+  late List<favouritesmodel> favourite = box.values.toList();
   @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;

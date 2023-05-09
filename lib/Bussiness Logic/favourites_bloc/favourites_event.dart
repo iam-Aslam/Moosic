@@ -11,7 +11,7 @@ class GetFavSongs extends FavouritesEvent {
 }
 
 class AddorRemoveFavourites extends FavouritesEvent {
-  final favourites favsong;
+  final favouritesmodel favsong;
   final int index;
 
   AddorRemoveFavourites(this.favsong, this.index);
@@ -20,7 +20,7 @@ class AddorRemoveFavourites extends FavouritesEvent {
 }
 
 class RemoveFromFavourites extends FavouritesEvent {
-  final favourites favsong;
+  final favouritesmodel favsong;
   final int index;
 
   RemoveFromFavourites(this.favsong, this.index);

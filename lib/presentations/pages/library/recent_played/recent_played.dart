@@ -1,27 +1,28 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:moosic/Bussiness%20Logic/recentyplayed_bloc/recentlyplayed_bloc.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
-class Recentlyplayed extends StatefulWidget {
-  const Recentlyplayed({super.key});
+class Recentlyplayed extends StatelessWidget {
+  Recentlyplayed({super.key});
 
-  @override
-  State<Recentlyplayed> createState() => _RecentlyplayedState();
-}
-
-final player = AssetsAudioPlayer.withId('0');
-
-class _RecentlyplayedState extends State<Recentlyplayed> {
   // ignore: prefer_typing_uninitialized_variables
   var orientation, size, height, width;
+
   final List<RecentlyPlayedModel> recentsongs = [];
+
   final box = RecentlyPlayedBox.getInstance();
+
   late List<RecentlyPlayedModel> recent = box.values.toList();
+
   List<Audio> recsongs = [];
+
   @override
-  void initState() {
+  Widget build(BuildContext context) {
+    // function that was in init state
     final List<RecentlyPlayedModel> recentsong =
         box.values.toList().reversed.toList();
     for (var i in recentsong) {
@@ -32,12 +33,10 @@ class _RecentlyplayedState extends State<Recentlyplayed> {
             id: i.id.toString(),
           )));
     }
-    setState(() {});
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    //bloc widget binding
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<RecentlyplayedBloc>(context).add(GetRecentlyPlayed());
+    });
     orientation = MediaQuery.of(context).orientation;
 
     //size of the window
@@ -55,38 +54,52 @@ class _RecentlyplayedState extends State<Recentlyplayed> {
                 width: width / 1,
                 height: height / 15.5,
               ),
-              ValueListenableBuilder<Box<RecentlyPlayedModel>>(
-                valueListenable: box.listenable(),
-                builder: (context, Box<RecentlyPlayedModel> dbrecent, child) {
-                  List<RecentlyPlayedModel> recentsongs =
-                      dbrecent.values.toList().reversed.toList();
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16.5),
-                      child: Column(
-                        children: [
-                          titleslib(title: 'Recently Played'),
-                          Expanded(
-                            child: GridView.count(
-                              shrinkWrap: true,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              crossAxisCount: 2,
-                              children: List.generate(
-                                recentsongs.length,
-                                (index) => favoritedummy(
-                                    index: index,
-                                    context: context,
-                                    recentsongs: recsongs,
-                                    audioplayer: player,
-                                    song: recentsongs[index].songname!,
-                                    image: recentsongs[index].id!,
-                                    time: recentsongs[index].duration!),
+              BlocBuilder<RecentlyplayedBloc, RecentlyplayedState>(
+                builder: (context, state) {
+                  if (state is RecentlyplayedInitial) {
+                    context.read<RecentlyplayedBloc>().add(GetRecentlyPlayed());
+                  }
+                  if (state is DisplayRecently) {
+                    return state.recentPlay.isNotEmpty
+                        ? Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16.5),
+                              child: Column(
+                                children: [
+                                  titleslib(title: 'Recently Played'),
+                                  Expanded(
+                                    child: GridView.count(
+                                      shrinkWrap: true,
+                                      // physics: const NeverScrollableScrollPhysics(),
+                                      crossAxisCount: 2,
+                                      children: List.generate(
+                                        state.recentPlay.length,
+                                        (index) => favoritedummy(
+                                            index: index,
+                                            context: context,
+                                            recentsongs: recsongs,
+                                            audioplayer: player,
+                                            song: state
+                                                .recentPlay[index].songname!,
+                                            image: state.recentPlay[index].id!,
+                                            time: state
+                                                .recentPlay[index].duration!),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           )
-                        ],
-                      ),
-                    ),
+                        : const Center(
+                            child: Text(
+                              "Your Recently played songs",
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
+                          );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
                 },
               ),
@@ -109,3 +122,5 @@ class _RecentlyplayedState extends State<Recentlyplayed> {
     );
   }
 }
+
+final player = AssetsAudioPlayer.withId('0');

@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:moosic/Bussiness%20Logic/playlist_bloc/playlist_bloc.dart';
 import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/presentations/pages/playlist/single_playlist/current_playlist.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../../Data/Models/models/playlistmodel.dart';
 
-class Playlist extends StatefulWidget {
-  const Playlist({super.key});
+class Playlist extends StatelessWidget {
+  Playlist({super.key});
 
-  @override
-  State<Playlist> createState() => _PlaylistState();
-}
-
-class _PlaylistState extends State<Playlist> {
   final playlistbox = PlaylistSongsbox.getInstance();
+
   late List<PlaylistSongs> playlistsongs = playlistbox.values.toList();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,120 +39,119 @@ class _PlaylistState extends State<Playlist> {
             children: [
               headerpages(context),
               titlesfav(title: 'Playlists'),
-              Expanded(
-                  child: ValueListenableBuilder<Box<PlaylistSongs>>(
-                valueListenable: playlistbox.listenable(),
-                builder: (context, Box<PlaylistSongs> playlistsongs, child) {
-                  List<PlaylistSongs> playlistsong =
-                      playlistsongs.values.toList();
-
-                  return playlistsong.isNotEmpty
-                      ? GridView.count(
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          children: List.generate(
-                            playlistsong.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.only(
-                                left: 16.0,
-                              ),
-                              child: SizedBox(
-                                height: 400,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: ((context) =>
-                                                    CurrentPlaylist(
-                                                      index: index,
-                                                      playlistname:
-                                                          playlistsong[index]
-                                                              .playlistname,
-                                                    ))));
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: playlistsong[index]
-                                                .playlistssongs!
-                                                .isNotEmpty
-                                            ? QueryArtworkWidget(
-                                                id: playlistsong[index]
-                                                    .playlistssongs![0]
-                                                    .id!,
-                                                type: ArtworkType.AUDIO,
-                                                keepOldArtwork: true,
-                                                artworkHeight: 130,
-                                                artworkWidth: 130,
-                                                artworkBorder:
-                                                    BorderRadius.circular(8),
-                                                nullArtworkWidget: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  child: Image.asset(
-                                                    'assets/images/empty.jpg',
-                                                    height: 124,
-                                                    width: 124,
-                                                  ),
-                                                ),
-                                              )
-                                            : Image.asset(
-                                                'assets/images/default.png',
+              Expanded(child: BlocBuilder<PlaylistBloc, PlaylistState>(
+                builder: (context, state) {
+                  if (state is PlaylistInitial) {
+                    context.read<PlaylistBloc>().add(GetPlayListSongs());
+                  }
+                  if (state is DisplayPlaylist) {
+                    return GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        state.Playlist.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.only(
+                            left: 16.0,
+                          ),
+                          child: SizedBox(
+                            height: 400,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                CurrentPlaylist(
+                                                  index: index,
+                                                  playlistname: state
+                                                      .Playlist[index]
+                                                      .playlistname,
+                                                ))));
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: state.Playlist[index].playlistssongs!
+                                            .isNotEmpty
+                                        ? QueryArtworkWidget(
+                                            id: state.Playlist[index]
+                                                .playlistssongs![0].id!,
+                                            type: ArtworkType.AUDIO,
+                                            keepOldArtwork: true,
+                                            artworkHeight: 130,
+                                            artworkWidth: 130,
+                                            artworkBorder:
+                                                BorderRadius.circular(8),
+                                            nullArtworkWidget: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.asset(
+                                                'assets/images/empty.jpg',
                                                 height: 124,
                                                 width: 124,
                                               ),
+                                            ),
+                                          )
+                                        : Image.asset(
+                                            'assets/images/default.png',
+                                            height: 124,
+                                            width: 124,
+                                          ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 100,
+                                      child: Text(
+                                        state.Playlist[index].playlistname!,
+                                        style: GoogleFonts.lato(
+                                          textStyle: const TextStyle(
+                                              fontSize: 20,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 100,
-                                          child: Text(
-                                            playlistsong[index].playlistname!,
-                                            style: GoogleFonts.lato(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 20,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
-                                        PopupMenuButton<int>(
-                                          itemBuilder: (context) => [
-                                            // PopupMenuItem 1
-                                            PopupMenuItem(
-                                              onTap: () {
-                                                deleteplaylist(index);
-                                              },
-                                              value: 1,
-                                              // row with 2 children
-                                              child: Row(
-                                                children: const [
-                                                  Icon(Icons.delete),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text("Delete")
-                                                ],
+                                    PopupMenuButton<int>(
+                                      itemBuilder: (context) => [
+                                        // PopupMenuItem 1
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            deleteplaylist(index);
+                                          },
+                                          value: 1,
+                                          // row with 2 children
+                                          child: Row(
+                                            children: const [
+                                              Icon(Icons.delete),
+                                              SizedBox(
+                                                width: 10,
                                               ),
-                                            ),
-                                          ],
+                                              Text("Delete")
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        )
-                      : const Center(
-                          child: Text('Playlist is empty'),
-                        );
+                        ),
+                      ),
+                    );
+                    // : const Center(
+                    //     child: Text('Playlist is empty'),
+                    //   );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 },
               ))
             ],
