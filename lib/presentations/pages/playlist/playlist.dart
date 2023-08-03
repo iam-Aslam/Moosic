@@ -1,9 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/playlist_bloc/playlist_bloc.dart';
-import 'package:moosic/Data/Models/functions/addplaylist.dart';
 import 'package:moosic/presentations/pages/playlist/single_playlist/current_playlist.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -21,7 +21,6 @@ class Playlist extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       floatingActionButton: FloatingActionButton(
-          // ignore: sort_child_properties_last
           child: const Icon(
             Icons.add,
             size: 30,
@@ -148,9 +147,6 @@ class Playlist extends StatelessWidget {
                         ),
                       ),
                     );
-                    // : const Center(
-                    //     child: Text('Playlist is empty'),
-                    //   );
                   }
                   return Center(
                     child: CircularProgressIndicator(),

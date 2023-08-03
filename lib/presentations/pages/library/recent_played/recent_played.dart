@@ -8,8 +8,6 @@ import 'package:moosic/presentations/widgets/common.dart';
 
 class Recentlyplayed extends StatelessWidget {
   Recentlyplayed({super.key});
-
-  // ignore: prefer_typing_uninitialized_variables
   var orientation, size, height, width;
 
   final List<RecentlyPlayedModel> recentsongs = [];
