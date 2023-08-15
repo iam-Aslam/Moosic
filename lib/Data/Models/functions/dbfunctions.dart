@@ -1,10 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:developer';
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import 'package:moosic/Data/Models/models/recentlymodel.dart';
-import 'package:moosic/Data/Models/models/songsmodel.dart';
 import '../models/favouriteModel.dart';
 
 late Box<favouritesmodel> favouritedb;

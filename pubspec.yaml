@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
-  google_fonts: ^3.0.1
+  google_fonts: ^5.1.0
   percent_indicator: ^4.2.2
   on_audio_query: ^2.6.1
   hive: ^2.2.3
@@ -45,8 +45,8 @@ dependencies:
   build_runner: ^2.3.3
   hive_generator: ^2.0.0
   assets_audio_player: ^3.0.6
-  audio_video_progress_bar: ^0.11.0
-  flutter_launcher_icons: ^0.12.0
+  audio_video_progress_bar: ^1.0.1
+  flutter_launcher_icons: ^0.13.1
   flutter_markdown: ^0.6.14
   flutter_bloc: ^8.1.2
 
