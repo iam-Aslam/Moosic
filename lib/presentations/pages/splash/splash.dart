@@ -63,29 +63,29 @@ class _splash_screenState extends State<splash_screen> {
       //request if not permission status
       if (!status) {
         await _audioQuery.permissionsRequest();
-        fetchSongs = await _audioQuery.querySongs();
-        for (var i in fetchSongs) {
-          if (i.fileExtension == "mp3") {
-            allSongs.add(i);
-          }
+      }
+      fetchSongs = await _audioQuery.querySongs();
+      for (var i in fetchSongs) {
+        if (i.fileExtension == "mp3") {
+          allSongs.add(i);
         }
-        for (var i in allSongs) {
-          await box.add(Songs(
-              artist: i.artist,
-              duration: i.duration,
-              id: i.id,
-              songurl: i.uri,
-              songname: i.title));
-        }
-        for (var items in allSongs) {
-          mostbox.add(MostPlayed(
-              songname: items.title,
-              songurl: items.uri!,
-              duration: items.duration!,
-              artist: items.artist!,
-              count: 0,
-              id: items.id));
-        }
+      }
+      for (var i in allSongs) {
+        await box.add(Songs(
+            artist: i.artist,
+            duration: i.duration,
+            id: i.id,
+            songurl: i.uri,
+            songname: i.title));
+      }
+      for (var items in allSongs) {
+        mostbox.add(MostPlayed(
+            songname: items.title,
+            songurl: items.uri!,
+            duration: items.duration!,
+            artist: items.artist!,
+            count: 0,
+            id: items.id));
       }
     }
   }

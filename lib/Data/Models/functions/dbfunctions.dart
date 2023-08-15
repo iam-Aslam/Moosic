@@ -55,6 +55,7 @@ addMostplayed(int index, MostPlayed value) {
 addMostplayednew(MostPlayed value) {
   final box = MostplayedBox.getInstance();
   List<MostPlayed> list = box.values.toList();
+  // ignore: unused_local_variable
   bool isNot = list.where((element) => element.id == value.id).isEmpty;
 
   int count = value.count;

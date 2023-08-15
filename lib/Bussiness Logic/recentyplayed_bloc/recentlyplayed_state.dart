@@ -10,7 +10,7 @@ class RecentlyplayedInitial extends RecentlyplayedState {
 }
 
 class DisplayRecently extends RecentlyplayedState {
-  List<RecentlyPlayedModel> recentPlay;
+  final List<RecentlyPlayedModel> recentPlay;
   DisplayRecently({
     required this.recentPlay,
   });

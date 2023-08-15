@@ -1,8 +1,7 @@
-// ignore_for_file: camel_case_types, must_be_immutable
+// ignore_for_file: must_be_immutable
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:moosic/Bussiness%20Logic/favourites_bloc/favourites_bloc.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';
@@ -26,7 +25,6 @@ class FavoritesWidget extends StatelessWidget {
     //   BlocProvider.of<FavouritesBloc>(context).add(GetFavSongs());
     // });
 
-    //items where in init state
     final List<favouritesmodel> likedsong =
         favourbox.values.toList().reversed.toList();
     for (var i in likedsong) {

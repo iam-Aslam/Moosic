@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:moosic/presentations/widgets/common.dart';
 
 class TermsandConditions extends StatelessWidget {
