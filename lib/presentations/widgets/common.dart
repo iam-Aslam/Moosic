@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, camel_case_types
 import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -213,7 +212,6 @@ InkWell listtile({
   required int image,
   required String song,
   required String artist,
-  // required String duration,
   required int index,
   required bool isadded,
   required BuildContext context,
@@ -226,9 +224,9 @@ InkWell listtile({
         headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
         showNotification: true,
       );
-      // Home.currentvalue.value = index;
+
       current.currentvalue.value = index;
-      //setState(() {});
+
       recent = RecentlyPlayedModel(
         index: index,
         id: songs.id,
@@ -242,7 +240,7 @@ InkWell listtile({
       context
           .read<MostplayedBloc>()
           .add(UpdateCount(mostplay: mostsong, index: index));
-      // addRecently(recent!);
+
       addMostplayed(index, mostsong[index]);
 
       Navigator.of(context).pushNamed('current');
@@ -542,7 +540,6 @@ showPlaylistOptionsadd(BuildContext context) {
                                   fontSize: 20, color: Colors.black),
                             ),
                           ),
-                          // alignLabelWithHint: true,
                         ),
                       ),
                     ),
@@ -590,7 +587,6 @@ showPlaylistOptionsadd(BuildContext context) {
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          //newplaylist(myController.text);
                           context
                               .read<PlaylistBloc>()
                               .add(CreatePlaylist(myController.text));
@@ -622,7 +618,6 @@ PopupMenuButton<int> popupmenu() {
       PopupMenuItem(
         onTap: () {
           log('Added to favourites');
-          // addfavour(context,index,);
         },
         value: 1,
         // row with 2 children
@@ -670,16 +665,11 @@ Padding favorite({
       children: [
         InkWell(
           onTap: () {
-            // List fav =
-            //     FavouriteBox.getInstance().values.toList().reversed.toList();
-            // current.currentList.value = fav;
             audioPlayer.open(Playlist(audios: favour, startIndex: index),
                 showNotification: true,
                 headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplug,
                 loopMode: LoopMode.playlist);
 
-            ///home.currentvalue.value = index;
-            //current.currentvalue.value = index;
             Navigator.of(context).pushNamed('current');
           },
           child: ClipRRect(
@@ -702,9 +692,6 @@ Padding favorite({
             ),
           ),
         ),
-        // SizedBox(
-        //   height: 0,
-        // ),
         Row(
           children: [
             Container(
@@ -720,41 +707,8 @@ Padding favorite({
                 ),
               ),
             ),
-            // PopupMenuButton<int>(
-            //   itemBuilder: (context) => [
-            //     // PopupMenuItem 1
-            //     PopupMenuItem(
-            //       onTap: () {
-            //         removefavour(index);
-            //       },
-            //       value: 1,
-            //       // row with 2 children
-            //       child: Row(
-            //         children: const [
-            //           Icon(Icons.delete),
-            //           SizedBox(
-            //             width: 10,
-            //           ),
-            //           Text("Remove")
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
-
-        // Text(
-        //   '',
-        //   // '04:47 Min',
-        //   style: GoogleFonts.lato(
-        //     textStyle: TextStyle(
-        //         letterSpacing: .5,
-        //         fontSize: 12,
-        //         fontWeight: FontWeight.bold,
-        //         color: Colors.black38),
-        //   ),
-        // )
       ],
     ),
   );
@@ -814,20 +768,6 @@ Padding favoritedummy({
                 letterSpacing: .5, fontSize: 14, fontWeight: FontWeight.bold),
           ),
         ),
-        // SizedBox(
-        //   height: 2,
-        // ),
-        // Text(
-        //   '$time',
-        //   // '04:47 Min',
-        //   style: GoogleFonts.lato(
-        //     textStyle: TextStyle(
-        //         letterSpacing: .5,
-        //         fontSize: 12,
-        //         fontWeight: FontWeight.bold,
-        //         color: Colors.black38),
-        //   ),
-        // )
       ],
     ),
   );
@@ -882,13 +822,11 @@ Padding library(
       width: 340,
       height: 110,
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
               image,
-              //'assets/images/prettygirl.jpg',
               height: 110,
               width: 110,
             ),
@@ -901,7 +839,6 @@ Padding library(
             children: [
               Container(
                 width: 200,
-                //color: Colors.amberAccent,
                 child: Text(
                   title,
                   style: GoogleFonts.sahitya(
@@ -943,7 +880,6 @@ Padding playlistgrid({required String song, required String image}) {
             borderRadius: BorderRadius.circular(15),
             child: Image.asset(
               image,
-              //'assets/images/default.png',
               height: 140,
               width: 140,
             ),
@@ -988,7 +924,6 @@ Widget settingselements(
             children: [
               Icon(
                 icon,
-                // Icons.account_circle_outlined,
                 size: 35,
               ),
               SizedBox(
@@ -996,7 +931,6 @@ Widget settingselements(
               ),
               Text(
                 title,
-                //'Account',
                 style: GoogleFonts.comfortaa(
                   textStyle: TextStyle(
                       letterSpacing: .5,
@@ -1009,10 +943,8 @@ Widget settingselements(
           IconButton(
               onPressed: () {
                 if (page == 'exit') {
-                  // SystemNavigator.pop();
                   return exit(context);
                 } else if (page == 'privacy') {
-                  // Navigator.of(context).pushNamed('privacy');
                   showDialog(
                     context: context,
                     builder: (builder) {
@@ -1020,7 +952,6 @@ Widget settingselements(
                     },
                   );
                 } else if (page == 'terms') {
-                  // Navigator.of(context).pushNamed('terms');
                   showDialog(
                     context: context,
                     builder: (builder) {

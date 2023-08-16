@@ -16,15 +16,10 @@ class FavoritesWidget extends StatelessWidget {
   final player = AssetsAudioPlayer.withId('0');
   late List<favouritesmodel> liked = favourbox.values.toList();
 
-  // bool isadded = true;
   List<Audio> favsong = [];
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   BlocProvider.of<FavouritesBloc>(context).add(GetFavSongs());
-    // });
-
     final List<favouritesmodel> likedsong =
         favourbox.values.toList().reversed.toList();
     for (var i in likedsong) {

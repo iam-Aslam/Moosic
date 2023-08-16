@@ -10,8 +10,16 @@ class MostplayedBloc extends Bloc<MostplayedEvent, MostplayedState> {
   MostplayedBloc() : super(MostplayedInitial()) {
     on<GetMostPlayed>((event, emit) {
       final box = MostplayedBox.getInstance();
+      final List<MostPlayed> mostplayedsongs = [];
       final List<MostPlayed> mostList = box.values.toList();
-      emit(DisplayMostPlayed(mostPlayed: mostList));
+      int i = 0;
+      for (var element in mostList) {
+        if (element.count > 3) {
+          mostplayedsongs.insert(i, element);
+          i++;
+        }
+      }
+      emit(DisplayMostPlayed(mostPlayed: mostplayedsongs));
     });
     on<UpdateCount>((event, emit) {
       try {

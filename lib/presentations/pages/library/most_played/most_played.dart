@@ -75,7 +75,6 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                                 ? Expanded(
                                     child: GridView.count(
                                       shrinkWrap: true,
-                                      // physics: const NeverScrollableScrollPhysics(),
                                       crossAxisCount: 2,
                                       children: List.generate(
                                         state.mostPlayed.length,
@@ -92,12 +91,17 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                                       ),
                                     ),
                                   )
-                                : Center(
-                                    child: Text(
-                                      "Your most played songs will appear here!",
-                                      style: GoogleFonts.kanit(
-                                          color: Colors.black),
-                                    ),
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                          "Your most played songs will appear here!",
+                                          style: GoogleFonts.kanit(
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
                                   );
                           }
                           return Center(

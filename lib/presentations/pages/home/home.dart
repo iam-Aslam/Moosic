@@ -195,9 +195,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     ),
                                   );
                                 }),
-                            // SizedBox(
-                            //   width: width / 40,
-                            // ),
+
                             //play button from miniplayer
                             PlayerBuilder.isPlaying(
                                 player: audioPlayer,
@@ -242,9 +240,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     ],
                                   );
                                 }),
-                            // SizedBox(
-                            //   width: width / 250,
-                            // ),
+
                             IconButton(
                               onPressed: () {
                                 log('hi i am next');

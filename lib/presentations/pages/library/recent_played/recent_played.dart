@@ -70,7 +70,6 @@ class Recentlyplayed extends StatelessWidget {
                                   Expanded(
                                     child: GridView.count(
                                       shrinkWrap: true,
-                                      // physics: const NeverScrollableScrollPhysics(),
                                       crossAxisCount: 2,
                                       children: List.generate(
                                         state.recentPlay.length,
