@@ -13,10 +13,6 @@ class SearchScreen extends StatefulWidget {
 final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 final TextEditingController searchcontroller = TextEditingController();
 
-// final _searchController = TextEditingController();
-// List<Songs> songList = Hive.box<Songs>(boxname).values.toList();
-// List<Songs> songDisplay = List<Songs>.from(songList);
-
 class _SearchScreenState extends State<SearchScreen> {
   late List<Songs> dbsongs = [];
   List<Audio> allsongs = [];
@@ -39,9 +35,6 @@ class _SearchScreenState extends State<SearchScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            // searchTextField(
-            //   context: context,
-            // ),
             TextFormField(
               autofocus: true,
               controller: searchcontroller,
@@ -61,20 +54,17 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'search',
               ),
               onChanged: (value) {
-                // _searchStudent(value);
                 updateSearch(value);
               },
             ),
             Expanded(
               child: ListView.builder(
-                // physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: searchlist.length,
                 itemBuilder: ((context, index) => Padding(
                       padding: const EdgeInsets.only(bottom: 8.0, left: 5),
                       child: ListTile(
                         onTap: () {
-                          // NowPlayingSlider.enteredvalue.value = index;
                           player.open(
                             Audio.file(searchlist[index].songurl!,
                                 metas: Metas(
@@ -142,9 +132,6 @@ Widget searchTextField({required BuildContext context}) {
           borderSide: BorderSide.none, borderRadius: BorderRadius.circular(50)),
       hintText: 'search',
     ),
-    onChanged: (value) {
-      // _searchStudent(value);
-      //updateSearch(value);
-    },
+    onChanged: (value) {},
   );
 }

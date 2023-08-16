@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors, camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:moosic/Data/Models/models/favouriteModel.dart';
 import 'package:moosic/presentations/pages/current_playing/current.dart';

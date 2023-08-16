@@ -2,7 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:moosic/Bussiness%20Logic/mostplayed_bloc/mostplayed_bloc.dart';
 import 'package:moosic/Data/Models/models/mostplayed.dart';
 import '../../../widgets/common.dart';
@@ -21,27 +20,6 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
   final box = MostplayedBox.getInstance();
   final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
   List<Audio> songs = [];
-
-  // @override
-  // void initState() {
-  //   List<MostPlayed> mostsong = box.values.toList();
-  //   int i = 0;
-  //   for (var element in mostsong) {
-  //     if (element.count > 3) {
-  //       mostplayedsongs.insert(i, element);
-  //       i++;
-  //     }
-  //   }
-  //   for (var items in mostplayedsongs) {
-  //     songs.add(Audio.file(items.songurl,
-  //         metas: Metas(
-  //             title: items.songname,
-  //             artist: items.artist,
-  //             id: items.id.toString())));
-  //   }
-
-  //   super.initState();
-  // }
 
   List<MostPlayed> mostplayedsongs = [];
   @override
@@ -97,7 +75,6 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                                 ? Expanded(
                                     child: GridView.count(
                                       shrinkWrap: true,
-                                      // physics: const NeverScrollableScrollPhysics(),
                                       crossAxisCount: 2,
                                       children: List.generate(
                                         state.mostPlayed.length,
@@ -114,12 +91,17 @@ class _MostPlayedPageState extends State<MostPlayedPage> {
                                       ),
                                     ),
                                   )
-                                : Center(
-                                    child: Text(
-                                      "Your most played songs will appear here!",
-                                      style: GoogleFonts.kanit(
-                                          color: Colors.black),
-                                    ),
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                          "Your most played songs will appear here!",
+                                          style: GoogleFonts.kanit(
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
                                   );
                           }
                           return Center(

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +70,6 @@ class Recentlyplayed extends StatelessWidget {
                                   Expanded(
                                     child: GridView.count(
                                       shrinkWrap: true,
-                                      // physics: const NeverScrollableScrollPhysics(),
                                       crossAxisCount: 2,
                                       children: List.generate(
                                         state.recentPlay.length,

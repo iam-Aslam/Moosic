@@ -98,7 +98,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       Container(
                                         width: 295,
                                         child: Text(
-                                          // allDbdongs[value].songname!,
                                           player.getCurrentAudioTitle,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
@@ -156,7 +155,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                       Container(
                                         width: 250,
                                         child: Text(
-                                          //allDbdongs[value].artist!,
                                           player.getCurrentAudioArtist,
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.ebGaramond(
@@ -268,8 +266,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                 )),
                                             IconButton(
                                               onPressed: () {
-                                                // previous(
-                                                //     player, value, allDbdongs);
                                                 player.previous();
                                                 setState(() {});
                                               },
@@ -299,8 +295,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                                         await player.pause();
                                                       } else {
                                                         await player.play();
-                                                        //playbutton(player,
-                                                        //  value, allDbdongs);
                                                       }
                                                       setState(
                                                         () {
@@ -326,9 +320,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
                                             ),
                                             IconButton(
                                                 onPressed: () async {
-                                                  // next(player, value,
-                                                  //   allDbdongs);
-                                                  // player.next();
                                                   await player.next();
                                                   setState(() {});
                                                 },
@@ -412,7 +403,6 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
     setState(() {
       current.currentvalue.value--;
     });
-    //await player.stop();
   }
 
   void next(AssetsAudioPlayer assetsAudioPlayer, int index,
@@ -424,6 +414,5 @@ class _currentState extends State<current> with SingleTickerProviderStateMixin {
     setState(() {
       current.currentvalue.value++;
     });
-    //await player.stop();
   }
 }
